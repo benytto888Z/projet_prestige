@@ -1,0 +1,87 @@
+{
+  "meta": {
+    "companyName": "PRESTIGE GAME CENTER SARL",
+    "country": "Bénin",
+    "currency": "FCFA",
+    "nYears": 10,
+    "nAssociates": 10,
+    "capitalPerAssociate": 13000000,
+    "amzPartnerRate": 50
+  },
+  "ops": {
+    "visitorsPerDay": 200,
+    "daysPerYear": 312,
+    "avgGameTicket": 2500,
+    "cafeDaily": 60000,
+    "sandwichDaily": 90000,
+    "cocktailDaily": 50000,
+    "eventsPerMonth": 8,
+    "avgEventRevenue": 250000
+  },
+  "growth": {
+    "visitorsGrowth": 12,
+    "ticketGrowth": 3,
+    "fbGrowth": 10,
+    "eventGrowth": 15,
+    "costGrowth": 4,
+    "salaryGrowth": 4
+  },
+  "costs": {
+    "fbCostPct": 35,
+    "prizesPct": 8,
+    "rent": 30000000,
+    "utilities": 18000000,
+    "marketing": 12000000,
+    "maintenance": 6000000,
+    "insurance": 4000000,
+    "admin": 8000000,
+    "benefitsPct": 18,
+    "salaries": [
+      { "role": "Directeur de centre", "count": 1, "salary": 250000 },
+      { "role": "Hôtes / animateurs", "count": 6, "salary": 80000 },
+      { "role": "Techniciens de jeux", "count": 2, "salary": 120000 },
+      { "role": "Sécurité", "count": 2, "salary": 70000 },
+      { "role": "Entretien", "count": 2, "salary": 60000 },
+      { "role": "Baristas / sandwicherie", "count": 2, "salary": 75000 }
+    ]
+  },
+  "startup": {
+    "building": 25000000,
+    "furniture": 8000000,
+    "installations": 7000000,
+    "openingInventory": 8000000,
+    "workingCapital": 20000000,
+    "contingency": 8000000,
+    "equipmentLife": 7,
+    "fitoutLife": 10
+  },
+  "finance": {
+    "loanAmount": 0,
+    "loanRate": 8,
+    "loanTerm": 5,
+    "taxRate": 25,
+    "wcPct": 6
+  },
+  "games": [
+    { "name": "Basket Tournament", "price": 8280000, "replicas": 1 },
+    { "name": "Piste de Bowling", "price": 6900000, "replicas": 2 },
+    { "name": "Golf Intérieur Interactif", "price": 4405000, "replicas": 1 },
+    { "name": "Connect Four Géant", "price": 8050000, "replicas": 1 },
+    { "name": "Electronic Shuffle", "price": 8050000, "replicas": 1 },
+    { "name": "Table Électrique Bowling", "price": 9200000, "replicas": 1 },
+    { "name": "Arcade Basket", "price": 2070000, "replicas": 3 },
+    { "name": "VoltRush / LOYINE", "price": 2300000, "replicas": 2 },
+    { "name": "Enigma Room", "price": 5450000, "replicas": 1 },
+    { "name": "Wall Crazy Light", "price": 6555000, "replicas": 1 },
+    { "name": "Crazy Light", "price": 1725000, "replicas": 2 },
+    { "name": "AMZ Classic Hockey", "price": 805000, "replicas": 2 },
+    { "name": "Crazy Pong", "price": 862500, "replicas": 2 },
+    { "name": "Skyline Racer", "price": 977500, "replicas": 2 },
+    { "name": "Stick Challenge", "price": 707250, "replicas": 2 },
+    { "name": "Ninja Stick", "price": 600000, "replicas": 2 },
+    { "name": "Neurona Arena VIP", "price": 9200000, "replicas": 1 },
+    { "name": "Neurona Arena Portable", "price": 575000, "replicas": 1 },
+    { "name": "Reflex Arena Portable", "price": 402500, "replicas": 1 },
+    { "name": "VoltRush Portable", "price": 402500, "replicas": 1 }
+  ]
+}
