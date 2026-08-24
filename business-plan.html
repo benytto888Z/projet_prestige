@@ -190,6 +190,12 @@
       border-color: var(--neon)
     }
 
+    input:disabled {
+      opacity: .55;
+      cursor: not-allowed;
+      background: #0b1120
+    }
+
     .hint {
       font-size: 11px;
       color: var(--mut);
@@ -824,8 +830,8 @@
 
   <div class="wrap">
     <div class="toolbar">
-      <button class="save" onclick="exportData()">💾 Sauvegarder (export prestige.txt)</button>
-      <button onclick="document.getElementById('fileImp').click()">📂 Importer prestige.txt</button>
+      <button class="save" onclick="exportData()">💾 Sauvegarder</button>
+      <!-- <button onclick="document.getElementById('fileImp').click()">📂 Importer prestige.txt</button> -->
       <input type="file" id="fileImp" accept=".txt,.json" class="hide" onchange="importData(event)">
       <button onclick="resetDefaults()">↺ Valeurs par défaut</button>
       <button class="primary" onclick="recalc()">🔄 Recalculer</button>
@@ -877,8 +883,9 @@
               <tr>
                 <th>#</th>
                 <th>Jeu</th>
-                <th>Prix local AMZ</th>
-                <th>Prix partenaire (50%)</th>
+                <th>Prix import 🔒</th>
+                <th>Prix local AMZ 🔒</th>
+                <th>Prix partenaire</th>
                 <th>Répliques</th>
                 <th>Sous-total partenaire</th>
                 <th></th>
@@ -888,6 +895,7 @@
           </table>
         </div>
         <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button id="adminBtn" onclick="toggleAdmin()">🔒 Mode admin (prix)</button>
           <button onclick="addGame()">➕ Ajouter un jeu</button>
           <div class="kpirow" style="margin:0;flex:1;min-width:260px">
             <div class="kpi">
@@ -1085,26 +1093,26 @@
         finance: { loanAmount: 0, loanRate: 8, loanTerm: 5, taxRate: 25, wcPct: 6, dividendPayout: 60 },
         scale: { countries: 5, centersPerCountry: 3, refYear: 1 },
         games: [
-          { name: "Basket Tournament", price: 8280000, replicas: 1 },
-          { name: "Piste de Bowling", price: 6900000, replicas: 2 },
-          { name: "Golf Intérieur Interactif", price: 4405000, replicas: 1 },
-          { name: "Connect Four Géant", price: 8050000, replicas: 1 },
-          { name: "Electronic Shuffle", price: 8050000, replicas: 1 },
-          { name: "Table Électrique Bowling", price: 9200000, replicas: 1 },
-          { name: "Arcade Basket", price: 2070000, replicas: 3 },
-          { name: "VoltRush / LOYINE", price: 2300000, replicas: 2 },
-          { name: "Enigma Room", price: 5450000, replicas: 1 },
-          { name: "Wall Crazy Light", price: 6555000, replicas: 1 },
-          { name: "Crazy Light", price: 1725000, replicas: 2 },
-          { name: "AMZ Classic Hockey", price: 805000, replicas: 2 },
-          { name: "Crazy Pong", price: 862500, replicas: 2 },
-          { name: "Skyline Racer", price: 977500, replicas: 2 },
-          { name: "Stick Challenge", price: 707250, replicas: 2 },
-          { name: "Ninja Stick", price: 600000, replicas: 2 },
-          { name: "Neurona Arena VIP", price: 9200000, replicas: 1 },
-          { name: "Neurona Arena Portable", price: 575000, replicas: 1 },
-          { name: "Reflex Arena Portable", price: 402500, replicas: 1 },
-          { name: "VoltRush Portable", price: 402500, replicas: 1 }
+          { name: "Basket Tournament", import: 18112500, price: 8280000, replicas: 1 },
+          { name: "Piste de Bowling", import: 13167500, price: 6900000, replicas: 2 },
+          { name: "Golf Intérieur Interactif", import: 8255000, price: 4405000, replicas: 1 },
+          { name: "Connect Four Géant", import: 17250000, price: 8050000, replicas: 1 },
+          { name: "Electronic Shuffle", import: 17250000, price: 8050000, replicas: 1 },
+          { name: "Table Électrique Bowling", import: 0, price: 9200000, replicas: 1 },
+          { name: "Arcade Basket", import: 3450000, price: 2070000, replicas: 3 },
+          { name: "VoltRush / LOYINE", import: 0, price: 2300000, replicas: 2 },
+          { name: "Enigma Room", import: 13450000, price: 5450000, replicas: 1 },
+          { name: "Wall Crazy Light", import: 0, price: 6555000, replicas: 1 },
+          { name: "Crazy Light", import: 2875000, price: 1725000, replicas: 2 },
+          { name: "AMZ Classic Hockey", import: 0, price: 805000, replicas: 2 },
+          { name: "Crazy Pong", import: 0, price: 862500, replicas: 2 },
+          { name: "Skyline Racer", import: 0, price: 977500, replicas: 2 },
+          { name: "Stick Challenge", import: 0, price: 707250, replicas: 2 },
+          { name: "Ninja Stick", import: 0, price: 600000, replicas: 2 },
+          { name: "Neurona Arena VIP", import: 15525000, price: 9200000, replicas: 1 },
+          { name: "Neurona Arena Portable", import: 0, price: 575000, replicas: 1 },
+          { name: "Reflex Arena Portable", import: 0, price: 402500, replicas: 1 },
+          { name: "VoltRush Portable", import: 0, price: 402500, replicas: 1 }
         ]
       };
     }
@@ -1151,10 +1159,12 @@
       let equip = 0, saving = 0;
       S.games.forEach((g, i) => {
         const pp = g.price * rate; const sub = pp * g.replicas; equip += sub; saving += (g.price * (1 - rate)) * g.replicas;
+        const dis = isAdminMode ? '' : 'disabled';
         const tr = document.createElement('tr'); tr.innerHTML = `
       <td>${i + 1}</td>
       <td><input value="${g.name}" oninput="S.games[${i}].name=this.value; recalc()"></td>
-      <td class="num"><input type="number" value="${g.price}" oninput="S.games[${i}].price=+this.value||0; recalc()"></td>
+      <td class="num"><input type="number" value="${g.import || ''}" placeholder="—" ${dis} oninput="S.games[${i}].import=+this.value||0; recalc()"></td>
+      <td class="num"><input type="number" value="${g.price}" ${dis} oninput="S.games[${i}].price=+this.value||0; recalc()"></td>
       <td class="num">${fmt(pp)}</td>
       <td class="num"><input type="number" min="0" value="${g.replicas}" oninput="S.games[${i}].replicas=+this.value||0; recalc()"></td>
       <td class="num"><b>${fmt(sub)}</b></td>
@@ -1165,6 +1175,19 @@
     }
     function addGame() { S.games.push({ name: "Nouveau jeu", price: 1000000, replicas: 1 }); renderGames(); recalc(); }
     function rmGame(i) { S.games.splice(i, 1); renderGames(); recalc(); }
+    function toggleAdmin() {
+      if (isAdminMode) { isAdminMode = false; }
+      else {
+        const p = prompt("Mode admin (prix import & local) - mot de passe :");
+        if (p === null) return;
+        if (p !== ADMIN_PASS) { alert("Mot de passe incorrect. Les prix restent verrouilles."); return; }
+        isAdminMode = true;
+      }
+      const b = F('adminBtn');
+      b.textContent = isAdminMode ? "Mode admin ACTIF - prix modifiables" : "Mode admin (prix)";
+      b.classList.toggle('primary', isAdminMode);
+      renderGames();
+    }
 
     /* ===================== SALAIRES ===================== */
     function renderSalaries() {
@@ -1488,6 +1511,7 @@
 
     /* ===================== EXPORT / IMPORT ===================== */
     const ADMIN_PASS = "prestige2026"; /* <-- CHANGE CE MOT DE PASSE */
+    let isAdminMode = false;
     function exportData() {
       const pwd = prompt("Sauvegarde protegee - entrez le mot de passe administrateur :");
       if (pwd === null) return;
@@ -1515,7 +1539,6 @@
     }
     function resetDefaults() { if (confirm('Revenir aux valeurs par défaut ?')) { S = defaultData(); document.getElementById('srcLbl').textContent = 'défaut'; fillForm(); renderGames(); renderSalaries(); recalc(); } }
   </script>
-  <script>(function () { function c() { var b = a.contentDocument || (a.contentWindow && a.contentWindow.document); if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'a2fe2df83a0841f6',t:'MTc4NzUzMDcwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
 </body>
 
 </html>

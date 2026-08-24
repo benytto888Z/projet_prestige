@@ -4,12 +4,12 @@
     "country": "Bénin",
     "currency": "FCFA",
     "nYears": 10,
-    "nAssociates": 10,
-    "capitalPerAssociate": 5000000,
+    "nAssociates": 12,
+    "capitalPerAssociate": 11000000,
     "amzPartnerRate": 50
   },
   "ops": {
-    "visitorsPerDay": 95,
+    "visitorsPerDay": 70,
     "daysPerYear": 312,
     "avgGameTicket": 2000,
     "cafeDaily": 60000,
