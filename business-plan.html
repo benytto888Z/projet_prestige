@@ -1,523 +1,1351 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Business Plan — PRESTIGE GAME CENTER SARL</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
-<style>
-  :root{
-    --bg:#0b1020; --panel:#141a2e; --panel2:#1b2238; --ink:#e8ecf6; --mut:#9aa6c2;
-    --line:#2a3350; --gold:#f5c451; --neon:#36e0c8; --violet:#8b5cf6; --pink:#ff5d8f; --blue:#4f8cff;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Segoe UI',Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5}
-  a{color:var(--neon)}
-  header.top{background:linear-gradient(120deg,#0b1020,#241b3a 60%,#3a1d52);padding:22px 18px;border-bottom:3px solid var(--gold)}
-  header.top h1{font-size:22px;letter-spacing:.5px}
-  header.top p{color:var(--mut);font-size:13px;margin-top:4px}
-  .wrap{max-width:1280px;margin:0 auto;padding:18px}
-  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:14px 0 22px}
-  button{cursor:pointer;border:0;border-radius:9px;padding:10px 16px;font-weight:700;font-size:13px;background:var(--panel2);color:var(--ink);border:1px solid var(--line)}
-  button:hover{border-color:var(--neon)}
-  button.primary{background:linear-gradient(120deg,var(--gold),#e0a93a);color:#1a1206}
-  button.save{background:linear-gradient(120deg,var(--neon),#1fb89e);color:#06231d}
-  .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
-  .tab{padding:9px 14px;border-radius:9px 9px 0 0;background:var(--panel);border:1px solid var(--line);font-size:13px;font-weight:700;cursor:pointer;color:var(--mut)}
-  .tab.active{background:var(--panel2);color:var(--gold);border-color:var(--gold)}
-  .panel{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px;margin-bottom:18px}
-  .panel h2{font-size:16px;color:var(--gold);margin-bottom:4px;display:flex;align-items:center;gap:8px}
-  .panel .sub{color:var(--mut);font-size:12.5px;margin-bottom:14px}
-  .grid{display:grid;gap:12px}
-  .g2{grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
-  .g3{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
-  .field{display:flex;flex-direction:column;gap:4px}
-  label{font-size:11.5px;color:var(--mut);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
-  input,select{background:#0e1426;border:1px solid var(--line);color:var(--ink);padding:9px 10px;border-radius:8px;font-size:14px;width:100%}
-  input:focus,select:focus{outline:none;border-color:var(--neon)}
-  .hint{font-size:11px;color:var(--mut);font-weight:400;text-transform:none;letter-spacing:0}
-  table.fin{width:100%;border-collapse:collapse;font-size:12px;margin-top:6px}
-  table.fin th,table.fin td{border:1px solid var(--line);padding:7px 8px;text-align:right;white-space:nowrap}
-  table.fin th{background:#0e1426;color:var(--mut);font-weight:700;text-align:center}
-  table.fin td.lbl{text-align:left;color:var(--ink);font-weight:600;background:#11182b}
-  table.fin tr.tot td{background:#1a2238;font-weight:800;color:var(--gold)}
-  table.fin tr.subt td{color:var(--mut)}
-  table.fin td.y0{color:var(--pink);font-weight:700}
-  .gamesTbl{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
-  .gamesTbl th,.gamesTbl td{border:1px solid var(--line);padding:7px 8px}
-  .gamesTbl th{background:#0e1426;color:var(--mut);text-align:left;font-size:11.5px;text-transform:uppercase}
-  .gamesTbl td input{padding:6px 7px;font-size:13px}
-  .gamesTbl td.num{text-align:right}
-  .gamesTbl tr:nth-child(even){background:#11182b}
-  .pill{display:inline-block;padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700}
-  .ok{background:#0f2e28;color:var(--neon)} .warn{background:#3a2a0f;color:var(--gold)}
-  .kpirow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin:6px 0 4px}
-  .kpi{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
-  .kpi .v{font-size:20px;font-weight:800;color:var(--gold)}
-  .kpi .l{font-size:11px;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
-  .charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px}
-  .chartBox{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px}
-  .chartBox h3{font-size:13px;color:var(--mut);margin-bottom:8px}
-  .bp{font-size:14px}
-  .bp h2{color:var(--gold);font-size:18px;margin:22px 0 6px;padding-bottom:5px;border-bottom:1px solid var(--line)}
-  .bp h2:first-child{margin-top:0}
-  .bp h3{color:var(--neon);font-size:14.5px;margin:14px 0 4px}
-  .bp p,.bp li{color:var(--ink);margin:6px 0}
-  .bp ul{padding-left:20px}
-  .bp .num{color:var(--gold);font-weight:700}
-  .toc{background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:14px 20px;margin-bottom:10px}
-  .toc ol{padding-left:20px;color:var(--mut)}
-  .note{background:#16122b;border:1px solid var(--violet);border-radius:10px;padding:12px 14px;font-size:12.5px;color:#d7cffb;margin:10px 0}
-  .hide{display:none}
-  footer{color:var(--mut);font-size:12px;text-align:center;padding:24px 10px}
-  @media(max-width:640px){table.fin{font-size:10.5px} table.fin th,table.fin td{padding:4px}}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Business Plan — PRESTIGE GAME CENTER SARL</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/html2pdf.js@0.10.1/dist/html2pdf.bundle.min.js"></script>
+  <style>
+    :root {
+      --bg: #060912;
+      --panel: linear-gradient(180deg, #121a33, #0c1124);
+      --panel2: #161e36;
+      --ink: #eaf0ff;
+      --mut: #94a3c8;
+      --line: #283358;
+      --gold: #f5c451;
+      --neon: #2fe3c4;
+      --violet: #9b6bff;
+      --pink: #ff5d8f;
+      --blue: #4f8cff;
+      --glow: 0 0 22px rgba(47, 227, 196, .18);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5
+    }
+
+    a {
+      color: var(--neon)
+    }
+
+    header.top {
+      background: linear-gradient(120deg, #070b16, #1c1430 55%, #3a1d52);
+      padding: 24px 18px;
+      border-bottom: 2px solid var(--gold);
+      box-shadow: 0 0 30px rgba(245, 196, 81, .18), 0 6px 30px rgba(0, 0, 0, .5)
+    }
+
+    header.top h1 {
+      font-size: 22px;
+      letter-spacing: .5px
+    }
+
+    header.top p {
+      color: var(--mut);
+      font-size: 13px;
+      margin-top: 4px
+    }
+
+    .wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 14px 0 22px
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      border-radius: 9px;
+      padding: 10px 16px;
+      font-weight: 700;
+      font-size: 13px;
+      background: var(--panel2);
+      color: var(--ink);
+      border: 1px solid var(--line)
+    }
+
+    button:hover {
+      border-color: var(--neon)
+    }
+
+    button.primary {
+      background: linear-gradient(120deg, var(--gold), #e0a93a);
+      color: #1a1206
+    }
+
+    button.save {
+      background: linear-gradient(120deg, var(--neon), #1fb89e);
+      color: #06231d
+    }
+
+    .tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 16px
+    }
+
+    .tab {
+      padding: 9px 14px;
+      border-radius: 9px 9px 0 0;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      color: var(--mut)
+    }
+
+    .tab.active {
+      background: var(--panel2);
+      color: var(--gold);
+      border-color: var(--gold)
+    }
+
+    .panel {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 18px;
+      box-shadow: var(--glow)
+    }
+
+    .panel h2 {
+      font-size: 16px;
+      color: var(--gold);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .panel .sub {
+      color: var(--mut);
+      font-size: 12.5px;
+      margin-bottom: 14px
+    }
+
+    .grid {
+      display: grid;
+      gap: 12px
+    }
+
+    .g2 {
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr))
+    }
+
+    .g3 {
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr))
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 4px
+    }
+
+    label {
+      font-size: 11.5px;
+      color: var(--mut);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    input,
+    select {
+      background: #0e1426;
+      border: 1px solid var(--line);
+      color: var(--ink);
+      padding: 9px 10px;
+      border-radius: 8px;
+      font-size: 14px;
+      width: 100%
+    }
+
+    input:focus,
+    select:focus {
+      outline: none;
+      border-color: var(--neon)
+    }
+
+    .hint {
+      font-size: 11px;
+      color: var(--mut);
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0
+    }
+
+    table.fin {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+      margin-top: 6px
+    }
+
+    table.fin th,
+    table.fin td {
+      border: 1px solid var(--line);
+      padding: 7px 8px;
+      text-align: right;
+      white-space: nowrap
+    }
+
+    table.fin th {
+      background: #0e1426;
+      color: var(--mut);
+      font-weight: 700;
+      text-align: center
+    }
+
+    table.fin td.lbl {
+      text-align: left;
+      color: var(--ink);
+      font-weight: 600;
+      background: #11182b
+    }
+
+    table.fin tr.tot td {
+      background: #1a2238;
+      font-weight: 800;
+      color: var(--gold)
+    }
+
+    table.fin tr.subt td {
+      color: var(--mut)
+    }
+
+    table.fin td.y0 {
+      color: var(--pink);
+      font-weight: 700
+    }
+
+    .gamesTbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+      margin-top: 6px
+    }
+
+    .gamesTbl th,
+    .gamesTbl td {
+      border: 1px solid var(--line);
+      padding: 7px 8px
+    }
+
+    .gamesTbl th {
+      background: #0e1426;
+      color: var(--mut);
+      text-align: left;
+      font-size: 11.5px;
+      text-transform: uppercase
+    }
+
+    .gamesTbl td input {
+      padding: 6px 7px;
+      font-size: 13px
+    }
+
+    .gamesTbl td.num {
+      text-align: right
+    }
+
+    .gamesTbl tr:nth-child(even) {
+      background: #11182b
+    }
+
+    .pill {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700
+    }
+
+    .ok {
+      background: #0f2e28;
+      color: var(--neon)
+    }
+
+    .warn {
+      background: #3a2a0f;
+      color: var(--gold)
+    }
+
+    .kpirow {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 6px 0 4px
+    }
+
+    .kpi {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px
+    }
+
+    .kpi .v {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--gold)
+    }
+
+    .kpi .l {
+      font-size: 11px;
+      color: var(--mut);
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    .charts {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 16px
+    }
+
+    .chartBox {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px
+    }
+
+    .chartBox h3 {
+      font-size: 13px;
+      color: var(--mut);
+      margin-bottom: 8px
+    }
+
+    .bp {
+      font-size: 14px
+    }
+
+    .bp h2 {
+      color: var(--gold);
+      font-size: 18px;
+      margin: 22px 0 6px;
+      padding-bottom: 5px;
+      border-bottom: 1px solid var(--line)
+    }
+
+    .bp h2:first-child {
+      margin-top: 0
+    }
+
+    .bp h3 {
+      color: var(--neon);
+      font-size: 14.5px;
+      margin: 14px 0 4px
+    }
+
+    .bp p,
+    .bp li {
+      color: var(--ink);
+      margin: 6px 0
+    }
+
+    .bp ul {
+      padding-left: 20px
+    }
+
+    .bp .num {
+      color: var(--gold);
+      font-weight: 700
+    }
+
+    .toc {
+      background: var(--panel2);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 14px 20px;
+      margin-bottom: 10px
+    }
+
+    .toc ol {
+      padding-left: 20px;
+      color: var(--mut)
+    }
+
+    .note {
+      background: #16122b;
+      border: 1px solid var(--violet);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 12.5px;
+      color: #d7cffb;
+      margin: 10px 0
+    }
+
+    .hide {
+      display: none
+    }
+
+    .analysis {
+      background: linear-gradient(180deg, #131c34, #0d1426);
+      border: 1px solid var(--line);
+      border-left: 4px solid var(--neon);
+      border-radius: 10px;
+      padding: 12px 14px;
+      margin-top: 12px;
+      box-shadow: var(--glow)
+    }
+
+    .analysis-h {
+      font-weight: 800;
+      color: var(--neon);
+      font-size: 13px;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+      letter-spacing: .4px
+    }
+
+    .analysis-b {
+      font-size: 13px;
+      color: var(--ink);
+      line-height: 1.6
+    }
+
+    .analysis-b b {
+      color: var(--gold)
+    }
+
+    .verdict {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      font-size: 12px;
+      margin: 0 2px
+    }
+
+    .verdict.ok {
+      background: #0f2e28;
+      color: var(--neon)
+    }
+
+    .verdict.warn {
+      background: #3a2a0f;
+      color: var(--gold)
+    }
+
+    .tab:hover {
+      color: var(--neon)
+    }
+
+    body.pdf-light,
+    body.pdf-light .panel,
+    body.pdf-light .bp,
+    body.pdf-light .bp * {
+      background: #ffffff !important;
+      color: #111111 !important;
+      border-color: #cccccc !important
+    }
+
+    body.pdf-light .bp h2 {
+      color: #b8860b !important
+    }
+
+    body.pdf-light .bp h3 {
+      color: #0a7d6a !important
+    }
+
+    body.pdf-light .bp .num {
+      color: #b8860b !important
+    }
+
+    body.pdf-light .bp .note {
+      background: #f4f4f4 !important;
+      color: #333333 !important
+    }
+
+    body.pdf-light .scale-controls,
+    body.pdf-light .scale-sub select {
+      display: none !important
+    }
+
+    @media print {
+
+      header.top,
+      .toolbar,
+      .tabs,
+      .tabc {
+        display: none !important
+      }
+
+      #tab-bp {
+        display: block !important
+      }
+
+      body,
+      #tab-bp,
+      .bp,
+      .bp * {
+        background: #fff !important;
+        color: #111 !important
+      }
+    }
+
+    #scaleWrap {
+      margin-top: 18px
+    }
+
+    .scale-section {
+      position: relative;
+      overflow: hidden;
+      border-radius: 18px;
+      padding: 26px 22px;
+      background: linear-gradient(135deg, #0a0f24 0%, #120a2e 45%, #0a1a2e 100%);
+      border: 1px solid #2a3358;
+      box-shadow: 0 0 40px rgba(47, 227, 196, .15), inset 0 0 60px rgba(155, 107, 255, .08)
+    }
+
+    .scale-grid {
+      position: absolute;
+      inset: 0;
+      background-image: linear-gradient(rgba(47, 227, 196, .07) 1px, transparent 1px), linear-gradient(90deg, rgba(47, 227, 196, .07) 1px, transparent 1px);
+      background-size: 38px 38px;
+      -webkit-mask-image: radial-gradient(circle at 50% 25%, #000, transparent 80%);
+      mask-image: radial-gradient(circle at 50% 25%, #000, transparent 80%);
+      pointer-events: none
+    }
+
+    .scale-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: .45;
+      pointer-events: none
+    }
+
+    .scale-glow1 {
+      width: 300px;
+      height: 300px;
+      background: #2fe3c4;
+      top: -80px;
+      left: -60px
+    }
+
+    .scale-glow2 {
+      width: 340px;
+      height: 340px;
+      background: #9b6bff;
+      bottom: -120px;
+      right: -80px
+    }
+
+    .scale-head {
+      position: relative;
+      text-align: center;
+      margin-bottom: 4px
+    }
+
+    .scale-kicker {
+      color: #2fe3c4;
+      letter-spacing: 4px;
+      font-size: 12px;
+      font-weight: 800
+    }
+
+    .scale-title {
+      font-size: 25px;
+      font-weight: 800;
+      margin: 6px 0;
+      background: linear-gradient(90deg, #f5c451, #2fe3c4, #9b6bff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent
+    }
+
+    .scale-sub {
+      color: #c7d2ee;
+      font-size: 14px;
+      max-width: 780px;
+      margin: 0 auto
+    }
+
+    .scale-sub select {
+      background: #0e1426;
+      color: #2fe3c4;
+      border: 1px solid #2fe3c4;
+      border-radius: 6px;
+      padding: 2px 6px
+    }
+
+    .scale-controls {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+      margin: 16px 0
+    }
+
+    .scale-controls label {
+      color: #94a3c8;
+      font-size: 12px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .scale-controls input {
+      width: 72px;
+      background: #0e1426;
+      border: 1px solid #2a3358;
+      color: #fff;
+      border-radius: 7px;
+      padding: 6px;
+      text-align: center
+    }
+
+    .scale-kpis {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+      position: relative
+    }
+
+    .sc-kpi {
+      background: rgba(18, 26, 51, .6);
+      border: 1px solid #2a3358;
+      border-radius: 13px;
+      padding: 14px;
+      text-align: center;
+      animation: scPulse 3.6s ease-in-out infinite
+    }
+
+    .sc-kpi.gold {
+      border-color: #f5c45155;
+      box-shadow: 0 0 18px rgba(245, 196, 81, .16)
+    }
+
+    .sc-kpi.neon {
+      border-color: #2fe3c455;
+      box-shadow: 0 0 18px rgba(47, 227, 196, .2)
+    }
+
+    .sc-kpi-v {
+      font-size: 19px;
+      font-weight: 800;
+      color: #fff
+    }
+
+    .sc-kpi.gold .sc-kpi-v {
+      color: #f5c451
+    }
+
+    .sc-kpi.neon .sc-kpi-v {
+      color: #2fe3c4
+    }
+
+    .sc-kpi-l {
+      font-size: 11px;
+      color: #94a3c8;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-top: 4px
+    }
+
+    .scale-countries {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+      position: relative
+    }
+
+    .sc-country {
+      background: rgba(10, 15, 36, .6);
+      border: 1px solid #2a3358;
+      border-radius: 11px;
+      padding: 11px 13px
+    }
+
+    .sc-flag {
+      font-weight: 800;
+      color: #eaf0ff;
+      font-size: 13px;
+      margin-bottom: 6px
+    }
+
+    .sc-cities {
+      display: flex;
+      flex-direction: column;
+      gap: 3px
+    }
+
+    .sc-city {
+      font-size: 11.5px;
+      color: #c7d2ee
+    }
+
+    .sc-more {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #9b6bff;
+      font-weight: 800
+    }
+
+    .scale-bar {
+      position: relative;
+      margin: 14px 0
+    }
+
+    .scale-bar-l {
+      font-size: 12px;
+      color: #94a3c8;
+      margin-bottom: 5px;
+      font-weight: 700
+    }
+
+    .scale-bar-track {
+      position: relative;
+      height: 30px;
+      background: #0e1426;
+      border: 1px solid #2a3358;
+      border-radius: 8px;
+      overflow: hidden
+    }
+
+    .scale-bar-fill {
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 100%;
+      background: linear-gradient(90deg, #9b6bff, #2fe3c4, #f5c451);
+      background-size: 200% 100%;
+      animation: scShine 3s linear infinite
+    }
+
+    .scale-bar-track span {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #fff;
+      font-size: 13px;
+      text-shadow: 0 1px 4px #000
+    }
+
+    .scale-note {
+      font-size: 12px;
+      color: #94a3c8;
+      text-align: center;
+      margin-top: 14px;
+      line-height: 1.6
+    }
+
+    .scale-note b {
+      color: #f5c451
+    }
+
+    .scale-cta {
+      text-align: center;
+      margin-top: 14px;
+      font-weight: 800;
+      font-size: 15px;
+      color: #2fe3c4;
+      letter-spacing: .5px
+    }
+
+    @keyframes scPulse {
+
+      0%,
+      100% {
+        box-shadow: 0 0 0 rgba(47, 227, 196, 0)
+      }
+
+      50% {
+        box-shadow: 0 0 16px rgba(47, 227, 196, .2)
+      }
+    }
+
+    @keyframes scShine {
+      0% {
+        background-position: 0 0
+      }
+
+      100% {
+        background-position: 200% 0
+      }
+    }
+
+    footer {
+      color: var(--mut);
+      font-size: 12px;
+      text-align: center;
+      padding: 24px 10px
+    }
+
+    @media(max-width:640px) {
+      table.fin {
+        font-size: 10.5px
+      }
+
+      table.fin th,
+      table.fin td {
+        padding: 4px
+      }
+    }
+  </style>
 </head>
+
 <body>
-<header class="top">
-  <h1>📊 Business Plan — PRESTIGE GAME CENTER SARL</h1>
-  <p>Centres de jeux de prestige en Afrique de l'Ouest · Équipements 100 % Made by AMZ · Projections sur 10 ans</p>
-</header>
+  <header class="top">
+    <h1>📊 Business Plan — PRESTIGE GAME CENTER SARL</h1>
+    <p>Centres de jeux de prestige en Afrique de l'Ouest · Équipements 100 % Made by AMZ · Projections sur 10 ans</p>
+  </header>
 
-<div class="wrap">
-  <div class="toolbar">
-    <button class="save" onclick="exportData()">💾 Sauvegarder (export prestige.txt)</button>
-    <button onclick="document.getElementById('fileImp').click()">📂 Importer prestige.txt</button>
-    <input type="file" id="fileImp" accept=".txt,.json" class="hide" onchange="importData(event)">
-    <button onclick="resetDefaults()">↺ Valeurs par défaut</button>
-    <button class="primary" onclick="recalc()">🔄 Recalculer</button>
-    <span style="color:var(--mut);font-size:12px">Données : <span id="srcLbl">défaut</span></span>
-  </div>
-
-  <div class="tabs" id="tabs">
-    <div class="tab active" data-t="form">⚙️ Formulaire & Hypothèses</div>
-    <div class="tab" data-t="tables">📈 Tableaux financiers</div>
-    <div class="tab" data-t="charts">📉 Graphiques</div>
-    <div class="tab" data-t="bp">📖 Business Plan</div>
-  </div>
-
-  <!-- ============================ TAB: FORM ============================ -->
-  <div id="tab-form" class="tabc">
-    <div class="panel">
-      <h2>① Projet & Associés</h2>
-      <div class="sub">Identité de la nouvelle SARL et apport des associés.</div>
-      <div class="grid g3">
-        <div class="field"><label>Nom de la société</label><input id="f_companyName"></div>
-        <div class="field"><label>Pays pilote</label><input id="f_country"></div>
-        <div class="field"><label>Devise</label><input id="f_currency"></div>
-        <div class="field"><label>Horizon (années)</label><input id="f_nYears" type="number" min="3" max="15"></div>
-        <div class="field"><label>Nombre d'associés</label><input id="f_nAssociates" type="number"></div>
-        <div class="field"><label>Apport / associé (FCFA)</label><input id="f_capitalPerAssociate" type="number"></div>
-      </div>
+  <div class="wrap">
+    <div class="toolbar">
+      <button class="save" onclick="exportData()">💾 Sauvegarder (export prestige.txt)</button>
+      <button onclick="document.getElementById('fileImp').click()">📂 Importer prestige.txt</button>
+      <input type="file" id="fileImp" accept=".txt,.json" class="hide" onchange="importData(event)">
+      <button onclick="resetDefaults()">↺ Valeurs par défaut</button>
+      <button class="primary" onclick="recalc()">🔄 Recalculer</button>
+      <button onclick="exportPDF()">📄 Exporter le BP (PDF)</button>
+      <span style="color:var(--mut);font-size:12px">Données : <span id="srcLbl">défaut</span></span>
     </div>
 
-    <div class="panel">
-      <h2>② Partenariat AMZ — Équipement à prix partenaire</h2>
-      <div class="sub">AMZ étant partenaire du projet, le centre paie les jeux à un tarif préférentiel.</div>
-      <div class="grid g3">
-        <div class="field"><label>Tarif partenaire AMZ (% du prix)</label><input id="f_amzPartnerRate" type="number" min="0" max="100"><span class="hint">Ex : 50 → le centre paie 50 % du prix local (les 50 % de remise sont l'apport en nature d'AMZ).</span></div>
-      </div>
+    <div class="tabs" id="tabs">
+      <div class="tab active" data-t="form">⚙️ Formulaire & Hypothèses</div>
+      <div class="tab" data-t="tables">📈 Tableaux financiers</div>
+      <div class="tab" data-t="charts">📉 Graphiques</div>
+      <div class="tab" data-t="bp">📖 Business Plan</div>
+      <div class="tab" data-t="invest">💰 Appel à investissement</div>
     </div>
 
-    <div class="panel">
-      <h2>③ Équipements du centre (catalogue AMZ)</h2>
-      <div class="sub">Prix local AMZ · prix partenaire calculé automatiquement · nombre de répliques par jeu (1 à 3+). Ajoute/retire des jeux : tout se recalcule.</div>
-      <div style="overflow-x:auto">
-        <table class="gamesTbl" id="gamesTbl">
-          <thead><tr>
-            <th>#</th><th>Jeu</th><th>Prix local AMZ</th><th>Prix partenaire (50%)</th><th>Répliques</th><th>Sous-total partenaire</th><th></th>
-          </tr></thead>
-          <tbody id="gamesBody"></tbody>
-        </table>
+    <!-- ============================ TAB: FORM ============================ -->
+    <div id="tab-form" class="tabc">
+      <div class="panel">
+        <h2>① Projet & Associés</h2>
+        <div class="sub">Identité de la nouvelle SARL et apport des associés.</div>
+        <div class="grid g3">
+          <div class="field"><label>Nom de la société</label><input id="f_companyName"></div>
+          <div class="field"><label>Pays pilote</label><input id="f_country"></div>
+          <div class="field"><label>Devise</label><input id="f_currency"></div>
+          <div class="field"><label>Horizon (années)</label><input id="f_nYears" type="number" min="3" max="15"></div>
+          <div class="field"><label>Nombre d'associés</label><input id="f_nAssociates" type="number"></div>
+          <div class="field"><label>Apport / associé (FCFA)</label><input id="f_capitalPerAssociate" type="number">
+          </div>
+        </div>
       </div>
-      <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
-        <button onclick="addGame()">➕ Ajouter un jeu</button>
-        <div class="kpirow" style="margin:0;flex:1;min-width:260px">
-          <div class="kpi"><div class="l">CAPEX équipements (partenaire)</div><div class="v" id="kpiEquip">—</div></div>
-          <div class="kpi"><div class="l">Économie AMZ (remise 50%)</div><div class="v" id="kpiSaving">—</div></div>
+
+      <div class="panel">
+        <h2>② Partenariat AMZ — Équipement à prix partenaire</h2>
+        <div class="sub">AMZ étant partenaire du projet, le centre paie les jeux à un tarif préférentiel.</div>
+        <div class="grid g3">
+          <div class="field"><label>Tarif partenaire AMZ (% du prix)</label><input id="f_amzPartnerRate" type="number"
+              min="0" max="100"><span class="hint">Ex : 50 → le centre paie 50 % du prix local (les 50 % de remise sont
+              l'apport en nature d'AMZ).</span></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>③ Équipements du centre (catalogue AMZ)</h2>
+        <div class="sub">Prix local AMZ · prix partenaire calculé automatiquement · nombre de répliques par jeu (1 à
+          3+). Ajoute/retire des jeux : tout se recalcule.</div>
+        <div style="overflow-x:auto">
+          <table class="gamesTbl" id="gamesTbl">
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Jeu</th>
+                <th>Prix local AMZ</th>
+                <th>Prix partenaire (50%)</th>
+                <th>Répliques</th>
+                <th>Sous-total partenaire</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="gamesBody"></tbody>
+          </table>
+        </div>
+        <div style="margin-top:10px;display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+          <button onclick="addGame()">➕ Ajouter un jeu</button>
+          <div class="kpirow" style="margin:0;flex:1;min-width:260px">
+            <div class="kpi">
+              <div class="l">CAPEX équipements (partenaire)</div>
+              <div class="v" id="kpiEquip">—</div>
+            </div>
+            <div class="kpi">
+              <div class="l">Économie AMZ (remise 50%)</div>
+              <div class="v" id="kpiSaving">—</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>④ Exploitation du centre (Année 1)</h2>
+        <div class="sub">Fréquentation, vente de parties, restauration (café / sandwicherie / cocktails) et événements.
+        </div>
+        <h3 style="color:var(--neon);font-size:13px;margin-bottom:8px">Fréquentation & parties de jeu</h3>
+        <div class="grid g3">
+          <div class="field"><label>Visiteurs / jour</label><input id="f_visitorsPerDay" type="number"></div>
+          <div class="field"><label>Jours d'ouverture / an</label><input id="f_daysPerYear" type="number"></div>
+          <div class="field"><label>Panier jeu moyen / visiteur (FCFA)</label><input id="f_avgGameTicket" type="number">
+          </div>
+        </div>
+        <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Restauration & bar (recette journalière)</h3>
+        <div class="grid g3">
+          <div class="field"><label>Café — FCFA / jour</label><input id="f_cafeDaily" type="number"></div>
+          <div class="field"><label>Sandwicherie — FCFA / jour</label><input id="f_sandwichDaily" type="number"></div>
+          <div class="field"><label>Cocktails — FCFA / jour</label><input id="f_cocktailDaily" type="number"></div>
+        </div>
+        <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Événements & privatisation (VIP, anniversaires,
+          corporate)</h3>
+        <div class="grid g3">
+          <div class="field"><label>Événements / mois</label><input id="f_eventsPerMonth" type="number"></div>
+          <div class="field"><label>Recette moyenne / événement (FCFA)</label><input id="f_avgEventRevenue"
+              type="number"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>⑤ Coûts d'exploitation (Année 1)</h2>
+        <div class="sub">Charges directes, personnel, loyer, énergie, etc.</div>
+        <h3 style="color:var(--neon);font-size:13px;margin-bottom:8px">Charges directes</h3>
+        <div class="grid g3">
+          <div class="field"><label>Coût resto (% CA resto)</label><input id="f_fbCostPct" type="number"></div>
+          <div class="field"><label>Tickets/lots (% CA jeu)</label><input id="f_prizesPct" type="number"></div>
+        </div>
+        <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Personnel (salaire mensuel × effectif)</h3>
+        <div style="overflow-x:auto">
+          <table class="gamesTbl" id="salTbl">
+            <thead>
+              <tr>
+                <th>Poste</th>
+                <th>Effectif</th>
+                <th>Salaire mensuel</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="salBody"></tbody>
+          </table>
+        </div>
+        <button style="margin-top:10px" onclick="addSalary()">➕ Ajouter un poste</button>
+        <div class="field" style="margin-top:10px;max-width:240px"><label>Charges sociales (% salaire)</label><input
+            id="f_benefitsPct" type="number"></div>
+        <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Charges fixes (annuelles)</h3>
+        <div class="grid g3">
+          <div class="field"><label>Loyer / an</label><input id="f_rent" type="number"></div>
+          <div class="field"><label>Électricité & fluides / an</label><input id="f_utilities" type="number"></div>
+          <div class="field"><label>Marketing / an</label><input id="f_marketing" type="number"></div>
+          <div class="field"><label>Maintenance jeux / an</label><input id="f_maintenance" type="number"></div>
+          <div class="field"><label>Assurance / an</label><input id="f_insurance" type="number"></div>
+          <div class="field"><label>Admin & divers / an</label><input id="f_admin" type="number"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>⑥ Hypothèses de croissance</h2>
+        <div class="sub">Taux annuels appliqués sur 10 ans.</div>
+        <div class="grid g3">
+          <div class="field"><label>Croissance fréquentation (%/an)</label><input id="f_visitorsGrowth" type="number">
+          </div>
+          <div class="field"><label>Croissance prix jeu (%/an)</label><input id="f_ticketGrowth" type="number"></div>
+          <div class="field"><label>Croissance resto (%/an)</label><input id="f_fbGrowth" type="number"></div>
+          <div class="field"><label>Croissance événements (%/an)</label><input id="f_eventGrowth" type="number"></div>
+          <div class="field"><label>Croissance charges fixes (%/an)</label><input id="f_costGrowth" type="number"></div>
+          <div class="field"><label>Croissance salaires (%/an)</label><input id="f_salaryGrowth" type="number"></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>⑦ Investissement de départ & financement</h2>
+        <div class="sub">Aménagement, stock, fonds de roulement, amortissements, prêt éventuel.</div>
+        <div class="grid g3">
+          <div class="field"><label>Aménagement & gros œuvre</label><input id="f_building" type="number"></div>
+          <div class="field"><label>Mobilier (café/bar/sandwich)</label><input id="f_furniture" type="number"></div>
+          <div class="field"><label>Installations (élec/AC/réseau)</label><input id="f_installations" type="number">
+          </div>
+          <div class="field"><label>Stock d'ouverture (resto/lots)</label><input id="f_openingInventory" type="number">
+          </div>
+          <div class="field"><label>Fonds de roulement initial</label><input id="f_workingCapital" type="number"></div>
+          <div class="field"><label>Provision pour imprévus</label><input id="f_contingency" type="number"></div>
+          <div class="field"><label>Durée amortissement équipements (ans)</label><input id="f_equipmentLife"
+              type="number"></div>
+          <div class="field"><label>Durée amortissement aménagement (ans)</label><input id="f_fitoutLife" type="number">
+          </div>
+          <div class="field"><label>Prêt bancaire (FCFA)</label><input id="f_loanAmount" type="number"></div>
+          <div class="field"><label>Taux du prêt (%)</label><input id="f_loanRate" type="number"></div>
+          <div class="field"><label>Durée du prêt (ans)</label><input id="f_loanTerm" type="number"></div>
+          <div class="field"><label>Taux d'imposition (%)</label><input id="f_taxRate" type="number"></div>
+          <div class="field"><label>Distribution des bénéfices (%)</label><input id="f_dividendPayout"
+              type="number"><span class="hint">Part du résultat net versée en dividendes chaque année.</span></div>
         </div>
       </div>
     </div>
 
-    <div class="panel">
-      <h2>④ Exploitation du centre (Année 1)</h2>
-      <div class="sub">Fréquentation, vente de parties, restauration (café / sandwicherie / cocktails) et événements.</div>
-      <h3 style="color:var(--neon);font-size:13px;margin-bottom:8px">Fréquentation & parties de jeu</h3>
-      <div class="grid g3">
-        <div class="field"><label>Visiteurs / jour</label><input id="f_visitorsPerDay" type="number"></div>
-        <div class="field"><label>Jours d'ouverture / an</label><input id="f_daysPerYear" type="number"></div>
-        <div class="field"><label>Panier jeu moyen / visiteur (FCFA)</label><input id="f_avgGameTicket" type="number"></div>
+    <!-- ============================ TAB: TABLES ============================ -->
+    <div id="tab-tables" class="tabc hide">
+      <div class="kpirow" id="kpiRow"></div>
+      <div class="panel">
+        <h2>Compte de résultat (Income Statement)</h2>
+        <div class="sub">Toutes valeurs en FCFA. Année 0 = investissement de départ.</div>
+        <div style="overflow-x:auto" id="incWrap"></div>
       </div>
-      <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Restauration & bar (recette journalière)</h3>
-      <div class="grid g3">
-        <div class="field"><label>Café — FCFA / jour</label><input id="f_cafeDaily" type="number"></div>
-        <div class="field"><label>Sandwicherie — FCFA / jour</label><input id="f_sandwichDaily" type="number"></div>
-        <div class="field"><label>Cocktails — FCFA / jour</label><input id="f_cocktailDaily" type="number"></div>
+      <div class="panel">
+        <h2>Tableau de flux de trésorerie (Cash Flow)</h2>
+        <div style="overflow-x:auto" id="cfWrap"></div>
       </div>
-      <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Événements & privatisation (VIP, anniversaires, corporate)</h3>
-      <div class="grid g3">
-        <div class="field"><label>Événements / mois</label><input id="f_eventsPerMonth" type="number"></div>
-        <div class="field"><label>Recette moyenne / événement (FCFA)</label><input id="f_avgEventRevenue" type="number"></div>
+      <div class="panel">
+        <h2>Bilan simplifié (Balance Sheet)</h2>
+        <div class="sub">Bilan indicatif de fin d'exercice.</div>
+        <div style="overflow-x:auto" id="bsWrap"></div>
       </div>
     </div>
 
-    <div class="panel">
-      <h2>⑤ Coûts d'exploitation (Année 1)</h2>
-      <div class="sub">Charges directes, personnel, loyer, énergie, etc.</div>
-      <h3 style="color:var(--neon);font-size:13px;margin-bottom:8px">Charges directes</h3>
-      <div class="grid g3">
-        <div class="field"><label>Coût resto (% CA resto)</label><input id="f_fbCostPct" type="number"></div>
-        <div class="field"><label>Tickets/lots (% CA jeu)</label><input id="f_prizesPct" type="number"></div>
-      </div>
-      <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Personnel (salaire mensuel × effectif)</h3>
-      <div style="overflow-x:auto"><table class="gamesTbl" id="salTbl"><thead><tr><th>Poste</th><th>Effectif</th><th>Salaire mensuel</th><th></th></tr></thead><tbody id="salBody"></tbody></table></div>
-      <button style="margin-top:10px" onclick="addSalary()">➕ Ajouter un poste</button>
-      <div class="field" style="margin-top:10px;max-width:240px"><label>Charges sociales (% salaire)</label><input id="f_benefitsPct" type="number"></div>
-      <h3 style="color:var(--neon);font-size:13px;margin:14px 0 8px">Charges fixes (annuelles)</h3>
-      <div class="grid g3">
-        <div class="field"><label>Loyer / an</label><input id="f_rent" type="number"></div>
-        <div class="field"><label>Électricité & fluides / an</label><input id="f_utilities" type="number"></div>
-        <div class="field"><label>Marketing / an</label><input id="f_marketing" type="number"></div>
-        <div class="field"><label>Maintenance jeux / an</label><input id="f_maintenance" type="number"></div>
-        <div class="field"><label>Assurance / an</label><input id="f_insurance" type="number"></div>
-        <div class="field"><label>Admin & divers / an</label><input id="f_admin" type="number"></div>
-      </div>
-    </div>
-
-    <div class="panel">
-      <h2>⑥ Hypothèses de croissance</h2>
-      <div class="sub">Taux annuels appliqués sur 10 ans.</div>
-      <div class="grid g3">
-        <div class="field"><label>Croissance fréquentation (%/an)</label><input id="f_visitorsGrowth" type="number"></div>
-        <div class="field"><label>Croissance prix jeu (%/an)</label><input id="f_ticketGrowth" type="number"></div>
-        <div class="field"><label>Croissance resto (%/an)</label><input id="f_fbGrowth" type="number"></div>
-        <div class="field"><label>Croissance événements (%/an)</label><input id="f_eventGrowth" type="number"></div>
-        <div class="field"><label>Croissance charges fixes (%/an)</label><input id="f_costGrowth" type="number"></div>
-        <div class="field"><label>Croissance salaires (%/an)</label><input id="f_salaryGrowth" type="number"></div>
+    <!-- ============================ TAB: CHARTS ============================ -->
+    <div id="tab-charts" class="tabc hide">
+      <div class="panel">
+        <h2>Graphiques statistiques</h2>
+        <div class="charts">
+          <div class="chartBox">
+            <h3>Évolution du chiffre d'affaires (par source)</h3><canvas id="c_rev"></canvas>
+          </div>
+          <div class="chartBox">
+            <h3>Rentabilité : EBITDA / EBIT / Résultat net</h3><canvas id="c_prof"></canvas>
+          </div>
+          <div class="chartBox">
+            <h3>Trésorerie cumulée</h3><canvas id="c_cash"></canvas>
+          </div>
+          <div class="chartBox">
+            <h3>Répartition du CA — Année 1</h3><canvas id="c_mix"></canvas>
+          </div>
+          <div class="chartBox">
+            <h3>Investissement de départ (CAPEX)</h3><canvas id="c_capex"></canvas>
+          </div>
+        </div>
       </div>
     </div>
 
-    <div class="panel">
-      <h2>⑦ Investissement de départ & financement</h2>
-      <div class="sub">Aménagement, stock, fonds de roulement, amortissements, prêt éventuel.</div>
-      <div class="grid g3">
-        <div class="field"><label>Aménagement & gros œuvre</label><input id="f_building" type="number"></div>
-        <div class="field"><label>Mobilier (café/bar/sandwich)</label><input id="f_furniture" type="number"></div>
-        <div class="field"><label>Installations (élec/AC/réseau)</label><input id="f_installations" type="number"></div>
-        <div class="field"><label>Stock d'ouverture (resto/lots)</label><input id="f_openingInventory" type="number"></div>
-        <div class="field"><label>Fonds de roulement initial</label><input id="f_workingCapital" type="number"></div>
-        <div class="field"><label>Provision pour imprévus</label><input id="f_contingency" type="number"></div>
-        <div class="field"><label>Durée amortissement équipements (ans)</label><input id="f_equipmentLife" type="number"></div>
-        <div class="field"><label>Durée amortissement aménagement (ans)</label><input id="f_fitoutLife" type="number"></div>
-        <div class="field"><label>Prêt bancaire (FCFA)</label><input id="f_loanAmount" type="number"></div>
-        <div class="field"><label>Taux du prêt (%)</label><input id="f_loanRate" type="number"></div>
-        <div class="field"><label>Durée du prêt (ans)</label><input id="f_loanTerm" type="number"></div>
-        <div class="field"><label>Taux d'imposition (%)</label><input id="f_taxRate" type="number"></div>
-      </div>
+    <!-- ============================ TAB: BP ============================ -->
+    <div id="tab-bp" class="tabc hide">
+      <div class="panel bp" id="bpContent"></div>
+      <div id="scaleWrap"></div>
+    </div>
+
+    <div id="tab-invest" class="tabc hide">
+      <div class="panel" id="investWrap"></div>
     </div>
   </div>
 
-  <!-- ============================ TAB: TABLES ============================ -->
-  <div id="tab-tables" class="tabc hide">
-    <div class="kpirow" id="kpiRow"></div>
-    <div class="panel"><h2>Compte de résultat (Income Statement)</h2><div class="sub">Toutes valeurs en FCFA. Année 0 = investissement de départ.</div><div style="overflow-x:auto" id="incWrap"></div></div>
-    <div class="panel"><h2>Tableau de flux de trésorerie (Cash Flow)</h2><div style="overflow-x:auto" id="cfWrap"></div></div>
-    <div class="panel"><h2>Bilan simplifié (Balance Sheet)</h2><div class="sub">Bilan indicatif de fin d'exercice.</div><div style="overflow-x:auto" id="bsWrap"></div></div>
-  </div>
+  <footer>PRESTIGE GAME CENTER SARL · Centres de jeux de prestige · Équipements 100 % Made by AMZ · Cotonou, Bénin
+  </footer>
 
-  <!-- ============================ TAB: CHARTS ============================ -->
-  <div id="tab-charts" class="tabc hide">
-    <div class="panel"><h2>Graphiques statistiques</h2><div class="charts">
-      <div class="chartBox"><h3>Évolution du chiffre d'affaires (par source)</h3><canvas id="c_rev"></canvas></div>
-      <div class="chartBox"><h3>Rentabilité : EBITDA / EBIT / Résultat net</h3><canvas id="c_prof"></canvas></div>
-      <div class="chartBox"><h3>Trésorerie cumulée</h3><canvas id="c_cash"></canvas></div>
-      <div class="chartBox"><h3>Répartition du CA — Année 1</h3><canvas id="c_mix"></canvas></div>
-      <div class="chartBox"><h3>Investissement de départ (CAPEX)</h3><canvas id="c_capex"></canvas></div>
-    </div></div>
-  </div>
+  <script>
+    /* =====================================================================
+       MODÈLE DE DONNÉES PAR DÉFAUT  (chargé aussi depuis db/prestige.txt)
+       ===================================================================== */
+    function defaultData() {
+      return {
+        meta: { companyName: "PRESTIGE GAME CENTER SARL", country: "Bénin", currency: "FCFA", nYears: 10, nAssociates: 10, capitalPerAssociate: 13000000, amzPartnerRate: 50 },
+        ops: { visitorsPerDay: 200, daysPerYear: 312, avgGameTicket: 2500, cafeDaily: 60000, sandwichDaily: 90000, cocktailDaily: 50000, eventsPerMonth: 8, avgEventRevenue: 250000 },
+        growth: { visitorsGrowth: 12, ticketGrowth: 3, fbGrowth: 10, eventGrowth: 15, costGrowth: 4, salaryGrowth: 4 },
+        costs: {
+          fbCostPct: 35, prizesPct: 8, rent: 30000000, utilities: 18000000, marketing: 12000000, maintenance: 6000000, insurance: 4000000, admin: 8000000, benefitsPct: 18,
+          salaries: [
+            { role: "Directeur de centre", count: 1, salary: 250000 },
+            { role: "Hôtes / animateurs", count: 6, salary: 80000 },
+            { role: "Techniciens de jeux", count: 2, salary: 120000 },
+            { role: "Sécurité", count: 2, salary: 70000 },
+            { role: "Entretien", count: 2, salary: 60000 },
+            { role: "Baristas / sandwicherie", count: 2, salary: 75000 }
+          ]
+        },
+        startup: { building: 25000000, furniture: 8000000, installations: 7000000, openingInventory: 8000000, workingCapital: 20000000, contingency: 8000000, equipmentLife: 7, fitoutLife: 10 },
+        finance: { loanAmount: 0, loanRate: 8, loanTerm: 5, taxRate: 25, wcPct: 6, dividendPayout: 60 },
+        scale: { countries: 5, centersPerCountry: 3, refYear: 1 },
+        games: [
+          { name: "Basket Tournament", price: 8280000, replicas: 1 },
+          { name: "Piste de Bowling", price: 6900000, replicas: 2 },
+          { name: "Golf Intérieur Interactif", price: 4405000, replicas: 1 },
+          { name: "Connect Four Géant", price: 8050000, replicas: 1 },
+          { name: "Electronic Shuffle", price: 8050000, replicas: 1 },
+          { name: "Table Électrique Bowling", price: 9200000, replicas: 1 },
+          { name: "Arcade Basket", price: 2070000, replicas: 3 },
+          { name: "VoltRush / LOYINE", price: 2300000, replicas: 2 },
+          { name: "Enigma Room", price: 5450000, replicas: 1 },
+          { name: "Wall Crazy Light", price: 6555000, replicas: 1 },
+          { name: "Crazy Light", price: 1725000, replicas: 2 },
+          { name: "AMZ Classic Hockey", price: 805000, replicas: 2 },
+          { name: "Crazy Pong", price: 862500, replicas: 2 },
+          { name: "Skyline Racer", price: 977500, replicas: 2 },
+          { name: "Stick Challenge", price: 707250, replicas: 2 },
+          { name: "Ninja Stick", price: 600000, replicas: 2 },
+          { name: "Neurona Arena VIP", price: 9200000, replicas: 1 },
+          { name: "Neurona Arena Portable", price: 575000, replicas: 1 },
+          { name: "Reflex Arena Portable", price: 402500, replicas: 1 },
+          { name: "VoltRush Portable", price: 402500, replicas: 1 }
+        ]
+      };
+    }
+    let S = defaultData();
 
-  <!-- ============================ TAB: BP ============================ -->
-  <div id="tab-bp" class="tabc hide">
-    <div class="panel bp" id="bpContent"></div>
-  </div>
-</div>
+    /* ===================== CHARGEMENT db/prestige.txt ===================== */
+    (async function init() {
+      try {
+        const r = await fetch('db/prestige.txt', { cache: 'no-store' });
+        if (r.ok) { const t = await r.text(); S = Object.assign(defaultData(), JSON.parse(t)); document.getElementById('srcLbl').textContent = 'db/prestige.txt'; }
+      } catch (e) { document.getElementById('srcLbl').textContent = 'valeurs par défaut (fichier non trouvé)'; }
+      fillForm(); renderGames(); renderSalaries(); recalc();
+    })();
 
-<footer>PRESTIGE GAME CENTER SARL · Centres de jeux de prestige · Équipements 100 % Made by AMZ · Cotonou, Bénin</footer>
+    /* ===================== FORMULAIRE : lecture/écriture ===================== */
+    const F = id => document.getElementById(id);
+    function num(id) { const v = parseFloat(F(id).value); return isNaN(v) ? 0 : v; }
+    function fillForm() {
+      F('f_companyName').value = S.meta.companyName; F('f_country').value = S.meta.country; F('f_currency').value = S.meta.currency;
+      F('f_nYears').value = S.meta.nYears; F('f_nAssociates').value = S.meta.nAssociates; F('f_capitalPerAssociate').value = S.meta.capitalPerAssociate;
+      F('f_amzPartnerRate').value = S.meta.amzPartnerRate;
+      const o = S.ops;['visitorsPerDay', 'daysPerYear', 'avgGameTicket', 'cafeDaily', 'sandwichDaily', 'cocktailDaily', 'eventsPerMonth', 'avgEventRevenue'].forEach(k => F('f_' + k).value = o[k]);
+      const g = S.growth;['visitorsGrowth', 'ticketGrowth', 'fbGrowth', 'eventGrowth', 'costGrowth', 'salaryGrowth'].forEach(k => F('f_' + k).value = g[k]);
+      const c = S.costs;['fbCostPct', 'prizesPct', 'rent', 'utilities', 'marketing', 'maintenance', 'insurance', 'admin', 'benefitsPct'].forEach(k => F('f_' + k).value = c[k]);
+      const st = S.startup;['building', 'furniture', 'installations', 'openingInventory', 'workingCapital', 'contingency', 'equipmentLife', 'fitoutLife'].forEach(k => F('f_' + k).value = st[k]);
+      const fi = S.finance;['loanAmount', 'loanRate', 'loanTerm', 'taxRate', 'dividendPayout'].forEach(k => F('f_' + k).value = fi[k]);
+    }
+    function readForm() {
+      S.meta.companyName = F('f_companyName').value; S.meta.country = F('f_country').value; S.meta.currency = F('f_currency').value;
+      S.meta.nYears = Math.max(3, parseInt(F('f_nYears').value) || 10); S.meta.nAssociates = num('f_nAssociates'); S.meta.capitalPerAssociate = num('f_capitalPerAssociate'); S.meta.amzPartnerRate = num('f_amzPartnerRate');
+      ['visitorsPerDay', 'daysPerYear', 'avgGameTicket', 'cafeDaily', 'sandwichDaily', 'cocktailDaily', 'eventsPerMonth', 'avgEventRevenue'].forEach(k => S.ops[k] = num('f_' + k));
+      ['visitorsGrowth', 'ticketGrowth', 'fbGrowth', 'eventGrowth', 'costGrowth', 'salaryGrowth'].forEach(k => S.growth[k] = num('f_' + k));
+      ['fbCostPct', 'prizesPct', 'rent', 'utilities', 'marketing', 'maintenance', 'insurance', 'admin', 'benefitsPct'].forEach(k => S.costs[k] = num('f_' + k));
+      ['building', 'furniture', 'installations', 'openingInventory', 'workingCapital', 'contingency', 'equipmentLife', 'fitoutLife'].forEach(k => S.startup[k] = num('f_' + k));
+      ['loanAmount', 'loanRate', 'loanTerm', 'taxRate', 'dividendPayout'].forEach(k => S.finance[k] = num('f_' + k));
+    }
+    /* écoute globale du formulaire */
+    document.getElementById('tab-form').addEventListener('input', () => { readForm(); renderGames(); recalc(); });
 
-<script>
-/* =====================================================================
-   MODÈLE DE DONNÉES PAR DÉFAUT  (chargé aussi depuis db/prestige.txt)
-   ===================================================================== */
-function defaultData(){
-  return {
-    meta:{ companyName:"PRESTIGE GAME CENTER SARL", country:"Bénin", currency:"FCFA", nYears:10, nAssociates:10, capitalPerAssociate:13000000, amzPartnerRate:50 },
-    ops:{ visitorsPerDay:200, daysPerYear:312, avgGameTicket:2500, cafeDaily:60000, sandwichDaily:90000, cocktailDaily:50000, eventsPerMonth:8, avgEventRevenue:250000 },
-    growth:{ visitorsGrowth:12, ticketGrowth:3, fbGrowth:10, eventGrowth:15, costGrowth:4, salaryGrowth:4 },
-    costs:{ fbCostPct:35, prizesPct:8, rent:30000000, utilities:18000000, marketing:12000000, maintenance:6000000, insurance:4000000, admin:8000000, benefitsPct:18,
-      salaries:[
-        {role:"Directeur de centre", count:1, salary:250000},
-        {role:"Hôtes / animateurs", count:6, salary:80000},
-        {role:"Techniciens de jeux", count:2, salary:120000},
-        {role:"Sécurité", count:2, salary:70000},
-        {role:"Entretien", count:2, salary:60000},
-        {role:"Baristas / sandwicherie", count:2, salary:75000}
-      ] },
-    startup:{ building:25000000, furniture:8000000, installations:7000000, openingInventory:8000000, workingCapital:20000000, contingency:8000000, equipmentLife:7, fitoutLife:10 },
-    finance:{ loanAmount:0, loanRate:8, loanTerm:5, taxRate:25, wcPct:6 },
-    games:[
-      {name:"Basket Tournament", price:8280000, replicas:1},
-      {name:"Piste de Bowling", price:6900000, replicas:2},
-      {name:"Golf Intérieur Interactif", price:4405000, replicas:1},
-      {name:"Connect Four Géant", price:8050000, replicas:1},
-      {name:"Electronic Shuffle", price:8050000, replicas:1},
-      {name:"Table Électrique Bowling", price:9200000, replicas:1},
-      {name:"Arcade Basket", price:2070000, replicas:3},
-      {name:"VoltRush / LOYINE", price:2300000, replicas:2},
-      {name:"Enigma Room", price:5450000, replicas:1},
-      {name:"Wall Crazy Light", price:6555000, replicas:1},
-      {name:"Crazy Light", price:1725000, replicas:2},
-      {name:"AMZ Classic Hockey", price:805000, replicas:2},
-      {name:"Crazy Pong", price:862500, replicas:2},
-      {name:"Skyline Racer", price:977500, replicas:2},
-      {name:"Stick Challenge", price:707250, replicas:2},
-      {name:"Ninja Stick", price:600000, replicas:2},
-      {name:"Neurona Arena VIP", price:9200000, replicas:1},
-      {name:"Neurona Arena Portable", price:575000, replicas:1},
-      {name:"Reflex Arena Portable", price:402500, replicas:1},
-      {name:"VoltRush Portable", price:402500, replicas:1}
-    ]
-  };
-}
-let S = defaultData();
-
-/* ===================== CHARGEMENT db/prestige.txt ===================== */
-(async function init(){
-  try{
-    const r = await fetch('db/prestige.txt',{cache:'no-store'});
-    if(r.ok){ const t = await r.text(); S = Object.assign(defaultData(), JSON.parse(t)); document.getElementById('srcLbl').textContent='db/prestige.txt'; }
-  }catch(e){ document.getElementById('srcLbl').textContent='valeurs par défaut (fichier non trouvé)'; }
-  fillForm(); renderGames(); renderSalaries(); recalc();
-})();
-
-/* ===================== FORMULAIRE : lecture/écriture ===================== */
-const F = id => document.getElementById(id);
-function num(id){ const v=parseFloat(F(id).value); return isNaN(v)?0:v; }
-function fillForm(){
-  F('f_companyName').value=S.meta.companyName; F('f_country').value=S.meta.country; F('f_currency').value=S.meta.currency;
-  F('f_nYears').value=S.meta.nYears; F('f_nAssociates').value=S.meta.nAssociates; F('f_capitalPerAssociate').value=S.meta.capitalPerAssociate;
-  F('f_amzPartnerRate').value=S.meta.amzPartnerRate;
-  const o=S.ops; ['visitorsPerDay','daysPerYear','avgGameTicket','cafeDaily','sandwichDaily','cocktailDaily','eventsPerMonth','avgEventRevenue'].forEach(k=>F('f_'+k).value=o[k]);
-  const g=S.growth; ['visitorsGrowth','ticketGrowth','fbGrowth','eventGrowth','costGrowth','salaryGrowth'].forEach(k=>F('f_'+k).value=g[k]);
-  const c=S.costs; ['fbCostPct','prizesPct','rent','utilities','marketing','maintenance','insurance','admin','benefitsPct'].forEach(k=>F('f_'+k).value=c[k]);
-  const st=S.startup; ['building','furniture','installations','openingInventory','workingCapital','contingency','equipmentLife','fitoutLife'].forEach(k=>F('f_'+k).value=st[k]);
-  const fi=S.finance; ['loanAmount','loanRate','loanTerm','taxRate'].forEach(k=>F('f_'+k).value=fi[k]);
-}
-function readForm(){
-  S.meta.companyName=F('f_companyName').value; S.meta.country=F('f_country').value; S.meta.currency=F('f_currency').value;
-  S.meta.nYears=Math.max(3,parseInt(F('f_nYears').value)||10); S.meta.nAssociates=num('f_nAssociates'); S.meta.capitalPerAssociate=num('f_capitalPerAssociate'); S.meta.amzPartnerRate=num('f_amzPartnerRate');
-  ['visitorsPerDay','daysPerYear','avgGameTicket','cafeDaily','sandwichDaily','cocktailDaily','eventsPerMonth','avgEventRevenue'].forEach(k=>S.ops[k]=num('f_'+k));
-  ['visitorsGrowth','ticketGrowth','fbGrowth','eventGrowth','costGrowth','salaryGrowth'].forEach(k=>S.growth[k]=num('f_'+k));
-  ['fbCostPct','prizesPct','rent','utilities','marketing','maintenance','insurance','admin','benefitsPct'].forEach(k=>S.costs[k]=num('f_'+k));
-  ['building','furniture','installations','openingInventory','workingCapital','contingency','equipmentLife','fitoutLife'].forEach(k=>S.startup[k]=num('f_'+k));
-  ['loanAmount','loanRate','loanTerm','taxRate'].forEach(k=>S.finance[k]=num('f_'+k));
-}
-/* écoute globale du formulaire */
-document.getElementById('tab-form').addEventListener('input', ()=>{ readForm(); renderGames(); recalc(); });
-
-/* ===================== JEUX (catalogue) ===================== */
-function renderGames(){
-  const rate=S.meta.amzPartnerRate/100;
-  const body=F('gamesBody'); body.innerHTML='';
-  let equip=0, saving=0;
-  S.games.forEach((g,i)=>{
-    const pp=g.price*rate; const sub=pp*g.replicas; equip+=sub; saving+=(g.price*(1-rate))*g.replicas;
-    const tr=document.createElement('tr'); tr.innerHTML=`
-      <td>${i+1}</td>
+    /* ===================== JEUX (catalogue) ===================== */
+    function renderGames() {
+      const rate = S.meta.amzPartnerRate / 100;
+      const body = F('gamesBody'); body.innerHTML = '';
+      let equip = 0, saving = 0;
+      S.games.forEach((g, i) => {
+        const pp = g.price * rate; const sub = pp * g.replicas; equip += sub; saving += (g.price * (1 - rate)) * g.replicas;
+        const tr = document.createElement('tr'); tr.innerHTML = `
+      <td>${i + 1}</td>
       <td><input value="${g.name}" oninput="S.games[${i}].name=this.value; recalc()"></td>
       <td class="num"><input type="number" value="${g.price}" oninput="S.games[${i}].price=+this.value||0; recalc()"></td>
       <td class="num">${fmt(pp)}</td>
       <td class="num"><input type="number" min="0" value="${g.replicas}" oninput="S.games[${i}].replicas=+this.value||0; recalc()"></td>
       <td class="num"><b>${fmt(sub)}</b></td>
       <td><button onclick="rmGame(${i})" style="padding:5px 9px">✕</button></td>`;
-    body.appendChild(tr);
-  });
-  F('kpiEquip').textContent=fmt(equip); F('kpiSaving').textContent=fmt(saving);
-}
-function addGame(){ S.games.push({name:"Nouveau jeu", price:1000000, replicas:1}); renderGames(); recalc(); }
-function rmGame(i){ S.games.splice(i,1); renderGames(); recalc(); }
+        body.appendChild(tr);
+      });
+      F('kpiEquip').textContent = fmt(equip); F('kpiSaving').textContent = fmt(saving);
+    }
+    function addGame() { S.games.push({ name: "Nouveau jeu", price: 1000000, replicas: 1 }); renderGames(); recalc(); }
+    function rmGame(i) { S.games.splice(i, 1); renderGames(); recalc(); }
 
-/* ===================== SALAIRES ===================== */
-function renderSalaries(){
-  const body=F('salBody'); body.innerHTML='';
-  S.costs.salaries.forEach((s,i)=>{
-    const tr=document.createElement('tr'); tr.innerHTML=`
+    /* ===================== SALAIRES ===================== */
+    function renderSalaries() {
+      const body = F('salBody'); body.innerHTML = '';
+      S.costs.salaries.forEach((s, i) => {
+        const tr = document.createElement('tr'); tr.innerHTML = `
       <td><input value="${s.role}" oninput="S.costs.salaries[${i}].role=this.value"></td>
       <td><input type="number" value="${s.count}" oninput="S.costs.salaries[${i}].count=+this.value||0; recalc()" style="width:80px"></td>
       <td><input type="number" value="${s.salary}" oninput="S.costs.salaries[${i}].salary=+this.value||0; recalc()"></td>
       <td><button onclick="rmSalary(${i})" style="padding:5px 9px">✕</button></td>`;
-    body.appendChild(tr);
-  });
-}
-function addSalary(){ S.costs.salaries.push({role:"Nouveau poste", count:1, salary:100000}); renderSalaries(); recalc(); }
-function rmSalary(i){ S.costs.salaries.splice(i,1); renderSalaries(); recalc(); }
+        body.appendChild(tr);
+      });
+    }
+    function addSalary() { S.costs.salaries.push({ role: "Nouveau poste", count: 1, salary: 100000 }); renderSalaries(); recalc(); }
+    function rmSalary(i) { S.costs.salaries.splice(i, 1); renderSalaries(); recalc(); }
 
-/* ===================== OUTILS ===================== */
-function fmt(n){ n=Math.round(n); return n.toLocaleString('fr-FR'); }
-function pct(n){ return (Math.round(n*100)/100).toFixed(2)+' %'; }
+    /* ===================== OUTILS ===================== */
+    function fmt(n) { n = Math.round(n); return n.toLocaleString('fr-FR'); }
+    function pct(n) { return (Math.round(n * 100) / 100).toFixed(2) + ' %'; }
 
-/* ===================== MOTEUR FINANCIER ===================== */
-function compute(){
-  const n=S.meta.nYears, rate=S.meta.amzPartnerRate/100;
-  const equipCAPEX=S.games.reduce((a,g)=>a+g.price*rate*g.replicas,0);
-  const fitoutCAPEX=S.startup.building+S.startup.furniture+S.startup.installations;
-  const grossCAPEX=equipCAPEX+fitoutCAPEX;
-  const totalStartup=grossCAPEX+S.startup.openingInventory+S.startup.workingCapital+S.startup.contingency;
-  const totalCapital=S.meta.nAssociates*S.meta.capitalPerAssociate;
-  const loan=S.finance.loanAmount;
-  let cash0=totalCapital+loan-totalStartup;
-  let outstanding=loan, accumDep=0, retained=0, prevRev=0, prevCash=cash0;
+    /* ===================== MOTEUR FINANCIER ===================== */
+    function compute() {
+      const n = S.meta.nYears, rate = S.meta.amzPartnerRate / 100;
+      const equipCAPEX = S.games.reduce((a, g) => a + g.price * rate * g.replicas, 0);
+      const fitoutCAPEX = S.startup.building + S.startup.furniture + S.startup.installations;
+      const grossCAPEX = equipCAPEX + fitoutCAPEX;
+      const totalStartup = grossCAPEX + S.startup.openingInventory + S.startup.workingCapital + S.startup.contingency;
+      const totalCapital = S.meta.nAssociates * S.meta.capitalPerAssociate;
+      const loan = S.finance.loanAmount;
+      let cash0 = totalCapital + loan - totalStartup;
+      let outstanding = loan, accumDep = 0, retained = 0, prevRev = 0, prevCash = cash0;
 
-  const years=[];
-  const salBase=S.costs.salaries.reduce((a,s)=>a+s.count*s.salary*12,0)*(1+S.costs.benefitsPct/100);
-  const fixedBase=S.costs.rent+S.costs.utilities+S.costs.marketing+S.costs.maintenance+S.costs.insurance+S.costs.admin;
-  for(let y=1;y<=n;y++){
-    const g=S.growth;
-    const visitors=S.ops.visitorsPerDay*Math.pow(1+g.visitorsGrowth/100,y-1);
-    const ticket=S.ops.avgGameTicket*Math.pow(1+g.ticketGrowth/100,y-1);
-    const gameRev=visitors*S.ops.daysPerYear*ticket;
-    const fb=(S.ops.cafeDaily+S.ops.sandwichDaily+S.ops.cocktailDaily)*Math.pow(1+g.fbGrowth/100,y-1)*S.ops.daysPerYear;
-    const events=S.ops.eventsPerMonth*12*S.ops.avgEventRevenue*Math.pow(1+g.eventGrowth/100,y-1);
-    const revenue=gameRev+fb+events;
-    const cogs=fb*(S.costs.fbCostPct/100)+gameRev*(S.costs.prizesPct/100);
-    const gross=revenue-cogs;
-    const salaries=salBase*Math.pow(1+g.salaryGrowth/100,y-1);
-    const fixed=fixedBase*Math.pow(1+g.costGrowth/100,y-1);
-    const opex=salaries+fixed;
-    const ebitda=gross-opex;
-    const eqDep=(y<=S.startup.equipmentLife)?equipCAPEX/S.startup.equipmentLife:0;
-    const ftDep=(y<=S.startup.fitoutLife)?fitoutCAPEX/S.startup.fitoutLife:0;
-    const dep=eqDep+ftDep; accumDep+=dep;
-    const ebit=ebitda-dep;
-    const interest=outstanding*(S.finance.loanRate/100);
-    const pbt=ebit-interest;
-    const tax=Math.max(0,pbt*(S.finance.taxRate/100));
-    const net=pbt-tax; retained+=net;
-    const principal=(loan>0 && y<=S.finance.loanTerm)?loan/S.finance.loanTerm:0;
-    outstanding-=principal;
-    const dwc=(y===1?revenue:(revenue-prevRev))*(S.finance.wcPct/100);
-    const opCF=net+dep-dwc;
-    const finCF=-principal;
-    const netCF=opCF+finCF;
-    const cash=prevCash+netCF; prevCash=cash; prevRev=revenue;
-    /* bilan */
-    const ar=revenue*0.05, inv=S.startup.openingInventory, ppe=grossCAPEX-accumDep;
-    const ap=(cogs+fixed)*0.06;
-    years.push({y,gameRev,fb,events,revenue,cogs,gross,salaries,fixed,opex,ebitda,dep,ebit,interest,pbt,tax,net,principal,dwc,opCF,netCF,cash,ar,inv,ppe,ap,loanBal:Math.max(0,outstanding),retained,capital:totalCapital});
-  }
-  return {n, equipCAPEX, fitoutCAPEX, grossCAPEX, totalStartup, totalCapital, loan, cash0, years, saving:S.games.reduce((a,g)=>a+g.price*(1-rate)*g.replicas,0)};
-}
+      const years = [];
+      const salBase = S.costs.salaries.reduce((a, s) => a + s.count * s.salary * 12, 0) * (1 + S.costs.benefitsPct / 100);
+      const fixedBase = S.costs.rent + S.costs.utilities + S.costs.marketing + S.costs.maintenance + S.costs.insurance + S.costs.admin;
+      for (let y = 1; y <= n; y++) {
+        const g = S.growth;
+        const visitors = S.ops.visitorsPerDay * Math.pow(1 + g.visitorsGrowth / 100, y - 1);
+        const ticket = S.ops.avgGameTicket * Math.pow(1 + g.ticketGrowth / 100, y - 1);
+        const gameRev = visitors * S.ops.daysPerYear * ticket;
+        const fb = (S.ops.cafeDaily + S.ops.sandwichDaily + S.ops.cocktailDaily) * Math.pow(1 + g.fbGrowth / 100, y - 1) * S.ops.daysPerYear;
+        const events = S.ops.eventsPerMonth * 12 * S.ops.avgEventRevenue * Math.pow(1 + g.eventGrowth / 100, y - 1);
+        const revenue = gameRev + fb + events;
+        const cogs = fb * (S.costs.fbCostPct / 100) + gameRev * (S.costs.prizesPct / 100);
+        const gross = revenue - cogs;
+        const salaries = salBase * Math.pow(1 + g.salaryGrowth / 100, y - 1);
+        const fixed = fixedBase * Math.pow(1 + g.costGrowth / 100, y - 1);
+        const opex = salaries + fixed;
+        const ebitda = gross - opex;
+        const eqDep = (y <= S.startup.equipmentLife) ? equipCAPEX / S.startup.equipmentLife : 0;
+        const ftDep = (y <= S.startup.fitoutLife) ? fitoutCAPEX / S.startup.fitoutLife : 0;
+        const dep = eqDep + ftDep; accumDep += dep;
+        const ebit = ebitda - dep;
+        const interest = outstanding * (S.finance.loanRate / 100);
+        const pbt = ebit - interest;
+        const tax = Math.max(0, pbt * (S.finance.taxRate / 100));
+        const net = pbt - tax; retained += net;
+        const principal = (loan > 0 && y <= S.finance.loanTerm) ? loan / S.finance.loanTerm : 0;
+        outstanding -= principal;
+        const dwc = (y === 1 ? revenue : (revenue - prevRev)) * (S.finance.wcPct / 100);
+        const opCF = net + dep - dwc;
+        const finCF = -principal;
+        const netCF = opCF + finCF;
+        const cash = prevCash + netCF; prevCash = cash; prevRev = revenue;
+        /* bilan */
+        const ar = revenue * 0.05, inv = S.startup.openingInventory, ppe = grossCAPEX - accumDep;
+        const ap = (cogs + fixed) * 0.06;
+        years.push({ y, gameRev, fb, events, revenue, cogs, gross, salaries, fixed, opex, ebitda, dep, ebit, interest, pbt, tax, net, principal, dwc, opCF, netCF, cash, ar, inv, ppe, ap, loanBal: Math.max(0, outstanding), retained, capital: totalCapital });
+      }
+      return { n, equipCAPEX, fitoutCAPEX, grossCAPEX, totalStartup, totalCapital, loan, cash0, years, saving: S.games.reduce((a, g) => a + g.price * (1 - rate) * g.replicas, 0) };
+    }
 
-/* ===================== RENDU TABLEAUX ===================== */
-function recalc(){
-  const m=compute();
-  renderKPI(m); renderTables(m); renderCharts(m); renderBP(m);
-}
-function head(n, y0label){ let h='<th>'+(y0label||'')+'</th>'; for(let i=1;i<=n;i++) h+=`<th>An ${i}</th>`; return h; }
-function row(lbl, vals, cls){ let r=`<td class="lbl">${lbl}</td>`; vals.forEach(v=> r+=`<td>${v===''?'':fmt(v)}</td>`); return `<tr class="${cls||''}">${r}</tr>`; }
+    /* ===================== RENDU TABLEAUX ===================== */
+    function recalc() {
+      const m = compute();
+      renderKPI(m); renderTables(m); renderCharts(m); renderBP(m); renderInvest(m); renderScale(m);
+    }
+    function head(n, y0label) { let h = '<th>' + (y0label || '') + '</th>'; for (let i = 1; i <= n; i++) h += `<th>An ${i}</th>`; return h; }
+    function row(lbl, vals, cls) { let r = `<td class="lbl">${lbl}</td>`; vals.forEach(v => r += `<td>${v === '' ? '' : fmt(v)}</td>`); return `<tr class="${cls || ''}">${r}</tr>`; }
 
-function renderKPI(m){
-  const y1=m.years[0], y10=m.years[m.years.length-1];
-  const payback = y1.net>0 ? (m.totalStartup/y1.net) : 0;
-  const items=[
-    ['CAPEX total départ', m.totalStartup],
-    ['Dont équipements (partenaire)', m.equipCAPEX],
-    ['Capital associés', m.totalCapital],
-    ['CA An 1', y1.revenue],
-    ['Résultat net An 1', y1.net],
-    ['CA An 10', y10.revenue],
-    ['Trésorerie An 10', y10.cash],
-    ['Remboursement (années)', payback]
-  ];
-  F('kpiRow').innerHTML=items.map(([l,v])=>`<div class="kpi"><div class="l">${l}</div><div class="v">${typeof v==='number'&&v<100? (Math.round(v*10)/10):fmt(v)}</div></div>`).join('');
-}
-function renderTables(m){
-  const n=m.n, Y=m.years, col=arr=>arr.map(y=>y);
-  // INCOME
-  let inc=`<table class="fin"><thead><tr>${head(n,'Compte de résultat')}</tr></thead><tbody>`;
-  inc+=row('CA — Parties de jeu', Y.map(y=>y.gameRev),'subt');
-  inc+=row('CA — Restauration & bar', Y.map(y=>y.fb),'subt');
-  inc+=row('CA — Événements / VIP', Y.map(y=>y.events),'subt');
-  inc+=row('CHIFFRE D\'AFFAIRES', Y.map(y=>y.revenue),'tot');
-  inc+=row('Coûts directs (resto + lots)', Y.map(y=>-y.cogs));
-  inc+=row('MARGE BRUTE', Y.map(y=>y.gross),'tot');
-  inc+=row('Salaires & charges', Y.map(y=>-y.salaries));
-  inc+=row('Charges fixes (loyer, énergie…)', Y.map(y=>-y.fixed));
-  inc+=row('EBITDA', Y.map(y=>y.ebitda),'tot');
-  inc+=row('Amortissements', Y.map(y=>-y.dep));
-  inc+=row('Résultat d\'exploitation (EBIT)', Y.map(y=>y.ebit),'tot');
-  inc+=row('Intérêts', Y.map(y=>-y.interest));
-  inc+=row('Résultat avant impôt', Y.map(y=>y.pbt),'tot');
-  inc+=row('Impôt sur sociétés', Y.map(y=>-y.tax));
-  inc+=row('RÉSULTAT NET', Y.map(y=>y.net),'tot');
-  inc+='</tbody></table>'; F('incWrap').innerHTML=inc;
-  // CASH FLOW
-  const cfrow=(lbl,an0,vals,cls)=>{ let r=`<td class="lbl">${lbl}</td><td>${an0===''?'':fmt(an0)}</td>`; vals.forEach(v=>r+=`<td>${v===''?'':fmt(v)}</td>`); return `<tr class="${cls?cls:''}">${r}</tr>`; };
-  let cf=`<table class="fin"><thead><tr><th>Flux de trésorerie</th><th class="y0">An 0</th>`;
-  for(let i=1;i<=n;i++) cf+=`<th>An ${i}</th>`;
-  cf+=`</tr></thead><tbody>`;
-  cf+=cfrow('Investissement & démarrage', -m.totalStartup, Y.map(()=>''));
-  cf+=cfrow('Financement (capital + prêt)', m.totalCapital+m.loan, Y.map(()=>''));
-  cf+=cfrow('Résultat net','', Y.map(y=>y.net),'subt');
-  cf+=cfrow('+ Amortissements','', Y.map(y=>y.dep));
-  cf+=cfrow('- Variation besoin en fonds','', Y.map(y=>-y.dwc));
-  cf+=cfrow("Flux d'exploitation",'', Y.map(y=>y.opCF),'tot');
-  cf+=cfrow('- Remboursement capital prêt','', Y.map(y=>-y.principal));
-  cf+=cfrow('FLUX NET DE TRÉSORERIE','', Y.map(y=>y.netCF),'tot');
-  cf+=`<tr class="tot"><td class="lbl">Trésorerie cumulée</td><td class="y0">${fmt(m.cash0)}</td>${Y.map(y=>`<td>${fmt(y.cash)}</td>`).join('')}</tr>`;
-  cf+='</tbody></table>'; F('cfWrap').innerHTML=cf;
-  // BALANCE
-  let bs=`<table class="fin"><thead><tr>${head(n,'Bilan simplifié')}</tr></thead><tbody>`;
-  bs+=row('Trésorerie', Y.map(y=>y.cash));
-  bs+=row('Créances clients', Y.map(y=>y.ar));
-  bs+=row('Stocks', Y.map(y=>y.inv));
-  bs+=row('Immobilisations (nettes)', Y.map(y=>y.ppe));
-  bs+=row('TOTAL ACTIF', Y.map(y=>y.cash+y.ar+y.inv+y.ppe),'tot');
-  bs+=row('Dettes fournisseurs', Y.map(y=>y.ap));
-  bs+=row('Emprunt', Y.map(y=>y.loanBal));
-  bs+=row('Capital associés', Y.map(y=>y.capital));
-  bs+=row('Réserves (résultats cumulés)', Y.map(y=>y.retained));
-  bs+=row('TOTAL PASSIF & CAPITAUX', Y.map(y=>y.ap+y.loanBal+y.capital+y.retained),'tot');
-  bs+='</tbody></table>'; F('bsWrap').innerHTML=bs;
-}
+    function renderKPI(m) {
+      const y1 = m.years[0], y10 = m.years[m.years.length - 1];
+      const payback = y1.net > 0 ? (m.totalStartup / y1.net) : 0;
+      const items = [
+        ['CAPEX total départ', m.totalStartup],
+        ['Dont équipements (partenaire)', m.equipCAPEX],
+        ['Capital associés', m.totalCapital],
+        ['CA An 1', y1.revenue],
+        ['Résultat net An 1', y1.net],
+        ['CA An 10', y10.revenue],
+        ['Trésorerie An 10', y10.cash],
+        ['Remboursement (années)', payback]
+      ];
+      F('kpiRow').innerHTML = items.map(([l, v]) => `<div class="kpi"><div class="l">${l}</div><div class="v">${typeof v === 'number' && v < 100 ? (Math.round(v * 10) / 10) : fmt(v)}</div></div>`).join('');
+    }
+    function renderTables(m) {
+      const n = m.n, Y = m.years, a = generateAnalysis(m), col = arr => arr.map(y => y);
+      // INCOME
+      let inc = `<table class="fin"><thead><tr>${head(n, 'Compte de résultat')}</tr></thead><tbody>`;
+      inc += row('CA — Parties de jeu', Y.map(y => y.gameRev), 'subt');
+      inc += row('CA — Restauration & bar', Y.map(y => y.fb), 'subt');
+      inc += row('CA — Événements / VIP', Y.map(y => y.events), 'subt');
+      inc += row('CHIFFRE D\'AFFAIRES', Y.map(y => y.revenue), 'tot');
+      inc += row('Coûts directs (resto + lots)', Y.map(y => -y.cogs));
+      inc += row('MARGE BRUTE', Y.map(y => y.gross), 'tot');
+      inc += row('Salaires & charges', Y.map(y => -y.salaries));
+      inc += row('Charges fixes (loyer, énergie…)', Y.map(y => -y.fixed));
+      inc += row('EBITDA', Y.map(y => y.ebitda), 'tot');
+      inc += row('Amortissements', Y.map(y => -y.dep));
+      inc += row('Résultat d\'exploitation (EBIT)', Y.map(y => y.ebit), 'tot');
+      inc += row('Intérêts', Y.map(y => -y.interest));
+      inc += row('Résultat avant impôt', Y.map(y => y.pbt), 'tot');
+      inc += row('Impôt sur sociétés', Y.map(y => -y.tax));
+      inc += row('RÉSULTAT NET', Y.map(y => y.net), 'tot');
+      inc += '</tbody></table>'; F('incWrap').innerHTML = inc + analysisBlock('Lecture du compte de resultat (5 ans)', a.income);
+      // CASH FLOW
+      const cfrow = (lbl, an0, vals, cls) => { let r = `<td class="lbl">${lbl}</td><td>${an0 === '' ? '' : fmt(an0)}</td>`; vals.forEach(v => r += `<td>${v === '' ? '' : fmt(v)}</td>`); return `<tr class="${cls ? cls : ''}">${r}</tr>`; };
+      let cf = `<table class="fin"><thead><tr><th>Flux de trésorerie</th><th class="y0">An 0</th>`;
+      for (let i = 1; i <= n; i++) cf += `<th>An ${i}</th>`;
+      cf += `</tr></thead><tbody>`;
+      cf += cfrow('Investissement & démarrage', -m.totalStartup, Y.map(() => ''));
+      cf += cfrow('Financement (capital + prêt)', m.totalCapital + m.loan, Y.map(() => ''));
+      cf += cfrow('Résultat net', '', Y.map(y => y.net), 'subt');
+      cf += cfrow('+ Amortissements', '', Y.map(y => y.dep));
+      cf += cfrow('- Variation besoin en fonds', '', Y.map(y => -y.dwc));
+      cf += cfrow("Flux d'exploitation", '', Y.map(y => y.opCF), 'tot');
+      cf += cfrow('- Remboursement capital prêt', '', Y.map(y => -y.principal));
+      cf += cfrow('FLUX NET DE TRÉSORERIE', '', Y.map(y => y.netCF), 'tot');
+      cf += `<tr class="tot"><td class="lbl">Trésorerie cumulée</td><td class="y0">${fmt(m.cash0)}</td>${Y.map(y => `<td>${fmt(y.cash)}</td>`).join('')}</tr>`;
+      cf += '</tbody></table>'; F('cfWrap').innerHTML = cf + analysisBlock('Lecture du cash flow (5 ans)', a.cashflow);
+      // BALANCE
+      let bs = `<table class="fin"><thead><tr>${head(n, 'Bilan simplifié')}</tr></thead><tbody>`;
+      bs += row('Trésorerie', Y.map(y => y.cash));
+      bs += row('Créances clients', Y.map(y => y.ar));
+      bs += row('Stocks', Y.map(y => y.inv));
+      bs += row('Immobilisations (nettes)', Y.map(y => y.ppe));
+      bs += row('TOTAL ACTIF', Y.map(y => y.cash + y.ar + y.inv + y.ppe), 'tot');
+      bs += row('Dettes fournisseurs', Y.map(y => y.ap));
+      bs += row('Emprunt', Y.map(y => y.loanBal));
+      bs += row('Capital associés', Y.map(y => y.capital));
+      bs += row('Réserves (résultats cumulés)', Y.map(y => y.retained));
+      bs += row('TOTAL PASSIF & CAPITAUX', Y.map(y => y.ap + y.loanBal + y.capital + y.retained), 'tot');
+      bs += '</tbody></table>'; F('bsWrap').innerHTML = bs + analysisBlock('Lecture du bilan (5 ans)', a.balance);
+    }
 
-/* ===================== GRAPHIQUES ===================== */
-let charts={};
-function renderCharts(m){
-  const labels=m.years.map(y=>'An '+y.y);
-  const conf=(id,cfg)=>{ if(charts[id]) charts[id].destroy(); charts[id]=new Chart(F(id),cfg); };
-  conf('c_rev',{type:'line',data:{labels,datasets:[
-    {label:'Parties de jeu',data:m.years.map(y=>y.gameRev),backgroundColor:'#4f8cff55'},
-    {label:'Restauration',data:m.years.map(y=>y.fb),backgroundColor:'#36e0c855'},
-    {label:'Événements',data:m.years.map(y=>y.events),backgroundColor:'#f5c45155'}
-  ],},options:sc('stack')});
-  conf('c_prof',{type:'bar',data:{labels,datasets:[
-    {label:'EBITDA',data:m.years.map(y=>y.ebitda),backgroundColor:'#36e0c8'},
-    {label:'EBIT',data:m.years.map(y=>y.ebit),backgroundColor:'#4f8cff'},
-    {label:'Résultat net',data:m.years.map(y=>y.net),backgroundColor:'#f5c451'}
-  ]},options:sc('grp')});
-  conf('c_cash',{type:'line',data:{labels,datasets:[{label:'Trésorerie cumulée',data:m.years.map(y=>y.cash),borderColor:'#36e0c8',backgroundColor:'#36e0c833',fill:true}]},options:sc('')});
-  const y1=m.years[0];
-  conf('c_mix',{type:'doughnut',data:{labels:['Parties de jeu','Restauration','Événements'],datasets:[{data:[y1.gameRev,y1.fb,y1.events],backgroundColor:['#4f8cff','#36e0c8','#f5c451']}]},options:{plugins:{legend:{labels:{color:'#e8ecf6'}}}}});
-  conf('c_capex',{type:'doughnut',data:{labels:['Équipements (partenaire)','Aménagement','Stock','Fonds de roulement','Imprévus'],datasets:[{data:[m.equipCAPEX,m.fitoutCAPEX,S.startup.openingInventory,S.startup.workingCapital,S.startup.contingency],backgroundColor:['#8b5cf6','#4f8cff','#36e0c8','#f5c451','#ff5d8f']}]},options:{plugins:{legend:{labels:{color:'#e8ecf6'}}}}});
-}
-function sc(stackOrGrp){ const base={plugins:{legend:{labels:{color:'#e8ecf6'}}},scales:{x:{ticks:{color:'#9aa6c2'},grid:{color:'#2a3350'}},y:{ticks:{color:'#9aa6c2',callback:v=>v/1e6+'M'},grid:{color:'#2a3350'}}}}; if(stackOrGrp==='stack') base.scales.x.stacked=true,base.scales.y.stacked=true; return base; }
+    /* ===================== GRAPHIQUES ===================== */
+    let charts = {};
+    function renderCharts(m) {
+      const labels = m.years.map(y => 'An ' + y.y);
+      const conf = (id, cfg) => { if (charts[id]) charts[id].destroy(); charts[id] = new Chart(F(id), cfg); };
+      conf('c_rev', {
+        type: 'line', data: {
+          labels, datasets: [
+            { label: 'Parties de jeu', data: m.years.map(y => y.gameRev), backgroundColor: '#4f8cff55' },
+            { label: 'Restauration', data: m.years.map(y => y.fb), backgroundColor: '#36e0c855' },
+            { label: 'Événements', data: m.years.map(y => y.events), backgroundColor: '#f5c45155' }
+          ],
+        }, options: sc('stack')
+      });
+      conf('c_prof', {
+        type: 'bar', data: {
+          labels, datasets: [
+            { label: 'EBITDA', data: m.years.map(y => y.ebitda), backgroundColor: '#36e0c8' },
+            { label: 'EBIT', data: m.years.map(y => y.ebit), backgroundColor: '#4f8cff' },
+            { label: 'Résultat net', data: m.years.map(y => y.net), backgroundColor: '#f5c451' }
+          ]
+        }, options: sc('grp')
+      });
+      conf('c_cash', { type: 'line', data: { labels, datasets: [{ label: 'Trésorerie cumulée', data: m.years.map(y => y.cash), borderColor: '#36e0c8', backgroundColor: '#36e0c833', fill: true }] }, options: sc('') });
+      const y1 = m.years[0];
+      conf('c_mix', { type: 'doughnut', data: { labels: ['Parties de jeu', 'Restauration', 'Événements'], datasets: [{ data: [y1.gameRev, y1.fb, y1.events], backgroundColor: ['#4f8cff', '#36e0c8', '#f5c451'] }] }, options: { plugins: { legend: { labels: { color: '#e8ecf6' } } } } });
+      conf('c_capex', { type: 'doughnut', data: { labels: ['Équipements (partenaire)', 'Aménagement', 'Stock', 'Fonds de roulement', 'Imprévus'], datasets: [{ data: [m.equipCAPEX, m.fitoutCAPEX, S.startup.openingInventory, S.startup.workingCapital, S.startup.contingency], backgroundColor: ['#8b5cf6', '#4f8cff', '#36e0c8', '#f5c451', '#ff5d8f'] }] }, options: { plugins: { legend: { labels: { color: '#e8ecf6' } } } } });
+    }
+    function sc(stackOrGrp) { const base = { plugins: { legend: { labels: { color: '#e8ecf6' } } }, scales: { x: { ticks: { color: '#9aa6c2' }, grid: { color: '#2a3350' } }, y: { ticks: { color: '#9aa6c2', callback: v => v / 1e6 + 'M' }, grid: { color: '#2a3350' } } } }; if (stackOrGrp === 'stack') base.scales.x.stacked = true, base.scales.y.stacked = true; return base; }
 
-/* ===================== BUSINESS PLAN (12 sections) ===================== */
-function renderBP(m){
-  const y1=m.years[0], y3=m.years[2], y10=m.years[m.years.length-1];
-  const rate=S.meta.amzPartnerRate;
-  const N=v=>'<span class="num">'+fmt(v)+' '+S.meta.currency+'</span>';
-  F('bpContent').innerHTML=`
+    /* ===================== BUSINESS PLAN (12 sections) ===================== */
+    function renderBP(m) {
+      const y1 = m.years[0], y3 = m.years[2], y10 = m.years[m.years.length - 1];
+      const rate = S.meta.amzPartnerRate;
+      const N = v => '<span class="num">' + fmt(v) + ' ' + S.meta.currency + '</span>';
+      F('bpContent').innerHTML = `
   <div class="toc"><b style="color:var(--gold)">SOMMAIRE</b><ol>
     <li>Résumé exécutif</li><li>Introduction</li><li>Description de l'entreprise</li><li>Produits et services</li>
     <li>Étude de marché</li><li>Organisation et gestion</li><li>Stratégie marketing et commerciale</li>
@@ -527,7 +1355,7 @@ function renderBP(m){
   <h2>RÉSUMÉ EXÉCUTIF</h2>
   <p><b>${S.meta.companyName}</b> est un projet de création d'un réseau de <b>centres de jeux de prestige</b> en Afrique de l'Ouest, démarré à ${S.meta.country}. Chaque centre est équipé à 100 % de jeux <b>conçus et fabriqués par AMZ INTERACTIVE TECHNOLOGY</b>, partenaire industriel du projet.</p>
   <p>Le modèle combine <b>trois sources de revenus</b> : vente de parties de jeu, restauration (café / sandwicherie / cocktails) et événements/privatisation VIP. Grâce au tarif partenaire AMZ (${rate} %), l'investissement en équipements est réduit de ${fmt(m.saving)} ${S.meta.currency}.</p>
-  <p>Chiffres clés : CA An 1 ${N(y1.revenue)} · Résultat net An 1 ${N(y1.net)} · CA An 10 ${N(y10.revenue)} · Investissement de départ ${N(m.totalStartup)} · Remboursement estimé ≈ ${(Math.round(m.totalStartup/y1.net*10)/10)} ans.</p>
+  <p>Chiffres clés : CA An 1 ${N(y1.revenue)} · Résultat net An 1 ${N(y1.net)} · CA An 10 ${N(y10.revenue)} · Investissement de départ ${N(m.totalStartup)} · Remboursement estimé ≈ ${(Math.round(m.totalStartup / y1.net * 10) / 10)} ans.</p>
 
   <h2>1. INTRODUCTION</h2>
   <p>L'Afrique de l'Ouest compte une population jeune, connectée et en quête de loisirs modernes, mais l'offre de centres de jeux interactifs de prestige est inexistante ou intégralement importée. ${S.meta.companyName} comble ce vide avec un concept premium, premium, équipé de matériel <b>100 % Made in Africa (AMZ)</b>. Le projet se positionne en <b>phase de démarrage / entrée sur le marché</b>, avec une feuille de route d'expansion régionale.</p>
@@ -549,7 +1377,7 @@ function renderBP(m){
   <p>Direction du centre, équipe d'animation/hôtes, techniciens de jeux (maintenance AMZ), sécurité, entretien, personnel de restauration. Masse salariale An 1 ≈ ${N(y1.salaries)} (${S.costs.salaries.length} catégories de postes).</p>
 
   <h2>6. STRATÉGIE MARKETING ET COMMERCIALE</h2>
-  <p>Positionnement « premier centre de prestige », communication digitale (attractions photogéniques), programme de fidélité, événements corporate et anniversaires, partenariats écoles/entreprises. Budget marketing An 1 : ${N(y1.fixed - (S.costs.rent+S.costs.utilities+S.costs.maintenance+S.costs.insurance+S.costs.admin)*Math.pow(1+S.growth.costGrowth/100,0))}.</p>
+  <p>Positionnement « premier centre de prestige », communication digitale (attractions photogéniques), programme de fidélité, événements corporate et anniversaires, partenariats écoles/entreprises. Budget marketing An 1 : ${N(y1.fixed - (S.costs.rent + S.costs.utilities + S.costs.maintenance + S.costs.insurance + S.costs.admin) * Math.pow(1 + S.growth.costGrowth / 100, 0))}.</p>
 
   <h2>7. PLAN OPÉRATIONNEL</h2>
   <p>Aménagement du centre, installation des ${S.games.length} attractions AMZ, ouverture 6 j/sem (${S.ops.daysPerYear} jours/an), gestion restauration + événements. Maintenance technique assurée par AMZ (support 48 h).</p>
@@ -572,31 +1400,122 @@ function renderBP(m){
   <p>Catalogue complet des ${S.games.length} attractions AMZ, grille de prix (local / partenaire), hypothèses détaillées (modifiables dans l'onglet Formulaire). Toutes les projections sont calculées automatiquement à partir des hypothèses saisies.</p>
   <div class="note">📑 Ce business plan est généré automatiquement par l'outil. Modifiez n'importe quel champ du formulaire : tableaux, graphiques et texte se mettent à jour instantanément.</div>
   `;
-}
+    }
 
-/* ===================== TABS ===================== */
-document.getElementById('tabs').addEventListener('click',e=>{
-  if(!e.target.classList.contains('tab'))return;
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-  e.target.classList.add('active');
-  ['form','tables','charts','bp'].forEach(id=>F('tab-'+id).classList.add('hide'));
-  F('tab-'+e.target.dataset.t).classList.remove('hide');
-  if(e.target.dataset.t!=='form') recalc();
-});
 
-/* ===================== EXPORT / IMPORT ===================== */
-function exportData(){
-  readForm();
-  const blob=new Blob([JSON.stringify(S,null,2)],{type:'text/plain'});
-  const a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='prestige.txt'; a.click();
-}
-function importData(ev){
-  const f=ev.target.files[0]; if(!f)return;
-  const rd=new FileReader();
-  rd.onload=()=>{ try{ S=Object.assign(defaultData(),JSON.parse(rd.result)); document.getElementById('srcLbl').textContent=f.name; fillForm(); renderGames(); renderSalaries(); recalc(); }catch(e){ alert('Fichier invalide.'); } };
-  rd.readAsText(f);
-}
-function resetDefaults(){ if(confirm('Revenir aux valeurs par défaut ?')){ S=defaultData(); document.getElementById('srcLbl').textContent='défaut'; fillForm(); renderGames(); renderSalaries(); recalc(); } }
-</script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2fd06530d395816',t:'MTc4NzUxODU5NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    function generateAnalysis(m) {
+      const Y = m.years, f5 = Y.slice(0, 5), N = v => fmt(v) + ' ' + S.meta.currency;
+      const firstProfit = Y.findIndex(y => y.net > 0) + 1;
+      const lossYears = f5.filter(y => y.net < 0).map(y => y.y);
+      const cumNet5 = f5.reduce((a, y) => a + y.net, 0);
+      const minNet = Math.min(...f5.map(y => y.net));
+      let income;
+      if (lossYears.length === 0) {
+        income = 'Sur les 5 premiers exercices, l activite degage un <b>resultat net positif des l An ' + firstProfit + '</b> (' + N(Y[firstProfit - 1].net) + '). Aucune annee n est deficitaire. Le resultat net cumule atteint <b>' + N(cumNet5) + '</b>. <span class="verdict ok">L activite est rentable des le demarrage.</span>';
+      } else {
+        income = 'Des pertes apparaissent en An ' + lossYears.join(', ') + ' (minimum ' + N(minNet) + '), du fait des amortissements et charges fixes. Seuil de rentabilite franchi en <b>An ' + (firstProfit > 0 ? firstProfit : '--') + '</b>. Resultat net cumule sur 5 ans : <b>' + N(cumNet5) + '</b>. ' + (cumNet5 > 0 ? '<span class="verdict ok">Rentable sur la periode.</span>' : '<span class="verdict warn">Attention : cumul negatif sur 5 ans.</span>');
+      }
+      const minCash = Math.min(...f5.map(y => y.cash)); const minCashY = f5.find(y => y.cash === minCash).y;
+      const negCashY = f5.filter(y => y.cash < 0).map(y => y.y);
+      let cashflow;
+      if (negCashY.length === 0) {
+        cashflow = 'La tresorerie reste <b>positive</b> pendant les 5 exercices (point bas : ' + N(minCash) + ' en An ' + minCashY + '). Les flux d exploitation couvrent largement les besoins. <span class="verdict ok">Aucun besoin de financement complementaire.</span>';
+      } else {
+        cashflow = '<span class="verdict warn">Attention : tresorerie negative en An ' + negCashY.join(', ') + ' (point bas ' + N(minCash) + '). Renforcer le fonds de roulement ou le capital.</span>';
+      }
+      const a1 = Y[0], a5 = f5[4];
+      const ta1 = a1.cash + a1.ar + a1.inv + a1.ppe, ta5 = a5.cash + a5.ar + a5.inv + a5.ppe;
+      const eq1 = a1.capital + a1.retained, eq5 = a5.capital + a5.retained;
+      const balance = 'Le total du bilan passe de <b>' + N(ta1) + '</b> (An 1) a <b>' + N(ta5) + '</b> (An 5). Les reserves cumulees atteignent <b>' + N(a5.retained) + '</b>. ' + (a5.loanBal > 0 ? 'Emprunt residuel : ' + N(a5.loanBal) + '. ' : 'Aucun emprunt residuel. ') + 'Les capitaux propres passent de ' + N(eq1) + ' a <b>' + N(eq5) + '</b> : la structure financiere se renforce.';
+      return { income, cashflow, balance };
+    }
+    function analysisBlock(title, html) { return '<div class="analysis"><div class="analysis-h">' + title + '</div><div class="analysis-b">' + html + '</div></div>'; }
+    function renderInvest(m) {
+      const n = S.meta.nAssociates, contrib = S.meta.capitalPerAssociate, payout = S.finance.dividendPayout / 100, Y = m.years;
+      let rows = '', cum = 0, payback = '--';
+      Y.forEach(y => {
+        const totDiv = y.net > 0 ? y.net * payout : 0, per = totDiv / n;
+        cum += per;
+        if (per > 0 && cum >= contrib && payback === '--') payback = 'An ' + y.y;
+        rows += '<tr><td class="lbl">An ' + y.y + '</td><td>' + fmt(y.net) + '</td><td>' + fmt(totDiv) + '</td><td>' + fmt(per) + '</td><td>' + fmt(cum) + '</td><td>' + (cum / contrib * 100).toFixed(0) + ' %</td></tr>';
+      });
+      const totalDivPer = Y.reduce((a, y) => a + (y.net > 0 ? y.net * payout / n : 0), 0);
+      const roi = totalDivPer / contrib * 100;
+      const kpi = [['Apport par associe', fmt(contrib)], ['Part de capital', (100 / n).toFixed(1) + ' %'], ['Dividendes cumules / associe (10 ans)', fmt(totalDivPer)], ['ROI sur 10 ans', roi.toFixed(0) + ' %'], ['Seuil de remboursement', payback]];
+      F('investWrap').innerHTML = '<h2>Appel a investissement</h2><div class="sub">Rendement estime pour chacun des ' + n + ' associes (distribution de ' + S.finance.dividendPayout + ' % du resultat net).</div><div class="kpirow">' + kpi.map(x => '<div class="kpi"><div class="l">' + x[0] + '</div><div class="v">' + x[1] + '</div></div>').join('') + '</div><div style="overflow-x:auto"><table class="fin"><thead><tr><th>Exercice</th><th>Resultat net</th><th>Dividendes totaux</th><th>Dividende / associe</th><th>Cumul / associe</th><th>ROI cumule</th></tr></thead><tbody>' + rows + '</tbody></table></div>' + analysisBlock('Pourquoi adherer ?', 'Avec un apport de <b>' + fmt(contrib) + ' ' + S.meta.currency + '</b>, chaque associe recupere sa mise en <b>' + payback + '</b> et percoit <b>' + fmt(totalDivPer) + ' ' + S.meta.currency + '</b> de dividendes cumules sur 10 ans (ROI <b>' + roi.toFixed(0) + ' %</b>), sans compter la plus-value de sa part. De plus, <b>AMZ fournit les equipements a 50 %</b>, reduisant fortement l investissement initial.');
+    }
+
+
+    function renderScale(m) {
+      const sc = S.scale, total = ((sc.countries | 0) || 1) * ((sc.centersPerCountry | 0) || 1);
+      const ref = Math.min(Math.max(1, (sc.refYear | 0) || 1), m.years.length);
+      const per = m.years[ref - 1], per5 = m.years[Math.min(5, m.years.length) - 1];
+      const emp = S.costs.salaries.reduce((a, s) => a + (s.count | 0), 0), cur = S.meta.currency;
+      const C = [{ f: "🇩🇯", n: "Bénin", c: ["Cotonou", "Porto-Novo", "Parakou"] }, { f: "🇹🇬", n: "Togo", c: ["Lomé", "Sokodé", "Kara"] }, { f: "🇨🇮", n: "Côte d'Ivoire", c: ["Abidjan", "Bouaké", "Yamoussoukro"] }, { f: "🇬🇭", n: "Ghana", c: ["Accra", "Kumasi", "Tamale"] }, { f: "🇳🇬", n: "Nigeria", c: ["Lagos", "Abuja", "Port Harcourt"] }];
+      const shown = C.slice(0, Math.min(sc.countries, C.length));
+      const extra = Math.max(0, sc.countries - C.length);
+      let yrOpt = ""; for (let i = 1; i <= m.years.length; i++) yrOpt += `<option value="${i}" ${i === ref ? "selected" : ""}>Année ${i}</option>`;
+      const cards = shown.map(co => { let cs = co.c.slice(0, sc.centersPerCountry).map(ci => `<span class="sc-city">● ${ci}</span>`).join(""); if (sc.centersPerCountry > co.c.length) cs += `<span class="sc-city">…</span>`; return `<div class="sc-country"><div class="sc-flag">${co.f} ${co.n}</div><div class="sc-cities">${cs}</div></div>`; }).join("");
+      const kpis = [["🌍 Centres déployés", fmt(total), ""], ["💰 CA réseau / an", fmt(per.revenue * total) + " " + cur, "gold"], ["⚡ EBITDA réseau / an", fmt(per.ebitda * total) + " " + cur, ""], ["🏆 Bénéfice net réseau / an", fmt(per.net * total) + " " + cur, "gold"], ["👷 Emplois créés", fmt(emp * total), ""], ["🏗️ Investissement réseau", fmt(m.totalStartup * total) + " " + cur, ""], ["🏭 Économie AMZ (50%)", fmt(m.saving * total) + " " + cur, "neon"]];
+      F("scaleWrap").innerHTML = `
+  <div class="scale-section">
+    <div class="scale-grid"></div><div class="scale-glow scale-glow1"></div><div class="scale-glow scale-glow2"></div>
+    <div class="scale-head">
+      <div class="scale-kicker">★ VISION PANAFRICAINE ★</div>
+      <h2 class="scale-title">Le réseau à l'échelle de l'Afrique de l'Ouest</h2>
+      <p class="scale-sub">Et si <b>${sc.countries} pays</b> accueillaient chacun <b>${sc.centersPerCountry} centres PRESTIGE</b> ? Voici le potentiel annuel du réseau — chaque centre étant à sa <select id="sc_refYear" onchange="S.scale.refYear=+this.value; renderScale(compute())">${yrOpt}</select> pleine d'exploitation.</p>
+    </div>
+    <div class="scale-controls">
+      <label>Pays <input type="number" min="1" max="16" id="sc_countries" value="${sc.countries}" onchange="S.scale.countries=+this.value||1; renderScale(compute())"></label>
+      <label>Centres / pays <input type="number" min="1" max="10" id="sc_cpc" value="${sc.centersPerCountry}" onchange="S.scale.centersPerCountry=+this.value||1; renderScale(compute())"></label>
+    </div>
+    <div class="scale-kpis">${kpis.map(k => `<div class="sc-kpi ${k[2] || ""}"><div class="sc-kpi-v">${k[1]}</div><div class="sc-kpi-l">${k[0]}</div></div>`).join("")}</div>
+    <div class="scale-countries">${cards}${extra ? `<div class="sc-country sc-more"><div class="sc-flag">+${extra} autres pays</div></div>` : ""}</div>
+    <div class="scale-bar"><div class="scale-bar-l">CA réseau / an</div><div class="scale-bar-track"><div class="scale-bar-fill"></div><span>${fmt(per.revenue * total)} ${cur}</span></div></div>
+    <div class="scale-note">Projection indicative à plein déploiement (${total} centres), calculée automatiquement à partir du centre pilote. Déploiement progressif. À titre de comparaison, le réseau générerait <b>${fmt(per5.revenue * total)} ${cur}</b> de CA/an si chaque centre atteint sa 5ᵉ année.</div>
+    <div class="scale-cta">🚀 Rejoignez le 1ᵉʳ réseau de centres de jeux de prestige Made in Africa.</div>
+  </div>`;
+    }
+    /* ===================== TABS ===================== */
+    document.getElementById('tabs').addEventListener('click', e => {
+      if (!e.target.classList.contains('tab')) return;
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      e.target.classList.add('active');
+      ['form', 'tables', 'charts', 'bp', 'invest'].forEach(id => F('tab-' + id).classList.add('hide'));
+      F('tab-' + e.target.dataset.t).classList.remove('hide');
+      if (e.target.dataset.t !== 'form') recalc();
+    });
+
+    /* ===================== EXPORT / IMPORT ===================== */
+    const ADMIN_PASS = "prestige2026"; /* <-- CHANGE CE MOT DE PASSE */
+    function exportData() {
+      const pwd = prompt("Sauvegarde protegee - entrez le mot de passe administrateur :");
+      if (pwd === null) return;
+      if (pwd !== ADMIN_PASS) { alert("Mot de passe incorrect. Sauvegarde refusee."); return; }
+      readForm();
+      const blob = new Blob([JSON.stringify(S, null, 2)], { type: 'text/plain' });
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = 'prestige.txt'; a.click();
+    }
+    function exportPDF() {
+      if (typeof html2pdf === 'undefined') { alert('Librairie PDF non chargee (reseau requis).'); return; }
+      document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+      const bt = document.querySelector('.tab[data-t="bp"]'); if (bt) bt.classList.add('active');
+      ['form', 'tables', 'charts', 'bp', 'invest'].forEach(id => { const e = document.getElementById('tab-' + id); if (e) e.classList.add('hide'); });
+      const tbp = document.getElementById('tab-bp'); if (tbp) tbp.classList.remove('hide');
+      recalc();
+      const el = document.getElementById('tab-bp');
+      const opt = { margin: [10, 10, 10, 10], filename: 'Business_Plan_Prestige_Game_Center.pdf', image: { type: 'jpeg', quality: 0.98 }, html2canvas: { scale: 2, backgroundColor: '#ffffff', useCORS: true, onclone: (doc) => { doc.body.classList.add('pdf-light'); } }, jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }, pagebreak: { mode: ['css', 'legacy'] } };
+      html2pdf().set(opt).from(el).save().catch(e => alert('Export PDF impossible: ' + e));
+    }
+    function importData(ev) {
+      const f = ev.target.files[0]; if (!f) return;
+      const rd = new FileReader();
+      rd.onload = () => { try { S = Object.assign(defaultData(), JSON.parse(rd.result)); document.getElementById('srcLbl').textContent = f.name; fillForm(); renderGames(); renderSalaries(); recalc(); } catch (e) { alert('Fichier invalide.'); } };
+      rd.readAsText(f);
+    }
+    function resetDefaults() { if (confirm('Revenir aux valeurs par défaut ?')) { S = defaultData(); document.getElementById('srcLbl').textContent = 'défaut'; fillForm(); renderGames(); renderSalaries(); recalc(); } }
+  </script>
+  <script>(function () { function c() { var b = a.contentDocument || (a.contentWindow && a.contentWindow.document); if (b) { var d = b.createElement('script'); d.innerHTML = "window.__CF$cv$params={r:'a2fe2df83a0841f6',t:'MTc4NzUzMDcwNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);"; b.getElementsByTagName('head')[0].appendChild(d) } } if (document.body) { var a = document.createElement('iframe'); a.height = 1; a.width = 1; a.style.position = 'absolute'; a.style.top = 0; a.style.left = 0; a.style.border = 'none'; a.style.visibility = 'hidden'; document.body.appendChild(a); if ('loading' !== document.readyState) c(); else if (window.addEventListener) document.addEventListener('DOMContentLoaded', c); else { var e = document.onreadystatechange || function () { }; document.onreadystatechange = function (b) { e(b); 'loading' !== document.readyState && (document.onreadystatechange = e, c()) } } } })();</script>
+</body>
+
 </html>

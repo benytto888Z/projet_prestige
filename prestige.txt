@@ -63,11 +63,6 @@
     "wcPct": 6,
     "dividendPayout": 60
   },
-  "scale": {
-    "countries": 5,
-    "centersPerCountry": 3,
-    "refYear": 1
-  },
   "games": [
     { "name": "Basket Tournament", "price": 8280000, "replicas": 1 },
     { "name": "Piste de Bowling", "price": 6900000, "replicas": 2 },

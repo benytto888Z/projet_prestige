@@ -1,0 +1,12 @@
+--- db/prestige.txt.orig	2026-08-23 21:30:49.852553914 +0000
++++ db/prestige.txt	2026-08-23 21:30:49.904553914 +0000
+@@ -60,7 +60,8 @@
+     "loanRate": 8,
+     "loanTerm": 5,
+     "taxRate": 25,
+-    "wcPct": 6
++    "wcPct": 6,
++    "dividendPayout": 60
+   },
+   "games": [
+     { "name": "Basket Tournament", "price": 8280000, "replicas": 1 },
