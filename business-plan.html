@@ -826,6 +826,8 @@
   <header class="top">
     <h1>📊 Business Plan — PRESTIGE GAME CENTER SARL</h1>
     <p>Centres de jeux de prestige en Afrique de l'Ouest · Équipements 100 % Made by AMZ · Projections sur 10 ans</p>
+  
+   <button class="primary" onclick="accueil()">🏠 RETOUR A L'ACCUEIL</button>
   </header>
 
   <div class="wrap">
@@ -1538,6 +1540,8 @@
       rd.readAsText(f);
     }
     function resetDefaults() { if (confirm('Revenir aux valeurs par défaut ?')) { S = defaultData(); document.getElementById('srcLbl').textContent = 'défaut'; fillForm(); renderGames(); renderSalaries(); recalc(); } }
+  
+  function accueil(){ window.location.href="index.html"; }
   </script>
 </body>
 
