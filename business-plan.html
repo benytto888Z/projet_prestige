@@ -28,6 +28,9 @@
       margin: 0;
       padding: 0
     }
+    .dbhidden {
+      display: none
+    }
 
     body {
       font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
@@ -838,7 +841,7 @@
       <!-- <button onclick="resetDefaults()">↺ Valeurs par défaut</button> -->
       <button class="primary" onclick="recalc()">🔄 Recalculer</button>
       <button onclick="exportPDF()">📄 Exporter le BP (PDF)</button>
-      <!-- <span style="color:var(--mut);font-size:12px">Données : <span id="srcLbl">défaut</span></span> -->
+      <span class="dbhidden" style="color:var(--mut);font-size:12px">Données : <span id="srcLbl">défaut</span></span>
     </div>
 
     <div class="tabs" id="tabs">
